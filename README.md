@@ -1,6 +1,10 @@
 #  spotify-details-extractor 🎶 
 
-Simple browser extension to extract Spotify details from an album page in a specific JSON object.
+Simple browser extension to extract Spotify details from an album page in a specific JSON object. You can find it in any context menu near you!
+
+![image](https://user-images.githubusercontent.com/19473034/142784088-b43090e5-91e3-407a-bd5a-169a08c55507.png)
+
+**PS**: This extension is actually not that intrusive and will actually only show up in the context menu when you are in the Spotify Web App. Furthermore, since they capture the user's `Right Click`, you need to press `Shift` + `Right Click` for it to show up.
 
 ## Installation
 
