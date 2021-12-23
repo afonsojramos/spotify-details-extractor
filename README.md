@@ -1,13 +1,15 @@
-#  spotify-details-extractor 🎶 
+<h3 align="center"><img src="https://user-images.githubusercontent.com/19473034/147299199-f19334ba-5612-4e5f-8ad2-ea4eeddfe873.png" width="150px"></h3>
+<h1 align="center">
+  Spotify Details Extractor 🎶
+</h1>
 
 Simple browser extension to extract Spotify details from an album page in a specific JSON object. You can find it in any context menu near you!
 
-![image](https://user-images.githubusercontent.com/19473034/142784088-b43090e5-91e3-407a-bd5a-169a08c55507.png)
+![image](https://user-images.githubusercontent.com/19473034/147299231-8e158259-815d-4759-a4db-32d05a42102f.png)
 
 **PS**: This extension is actually not that intrusive and will actually only show up in the context menu when you are in the Spotify Web App. Furthermore, since they capture the user's `Right Click`, you need to press `Shift` + `Right Click` for it to show up.
 
 ## Installation
-
 
 ### Firefox
 
@@ -21,14 +23,14 @@ Each entry is contructed by the following JSON schema:
 
 ```json
 {
-    "title": "For the first time",
-    "artist": "Black Country, New Road",
-    "image": "https://i.scdn.co/image/ab67616d00001e020ffaa4f75b2297d36ff1e0ad",
-    "url": "https://open.spotify.com/album/2PfgptDcfJTFtoZIS3AukX"
+  "title": "For the first time",
+  "artist": "Black Country, New Road",
+  "image": "https://i.scdn.co/image/ab67616d00001e020ffaa4f75b2297d36ff1e0ad",
+  "url": "https://open.spotify.com/album/2PfgptDcfJTFtoZIS3AukX"
 }
 ```
 
-The resulting page can be seen in [afonsojramos.me/music](afonsojramos.me/music). 
+The resulting page can be seen in [afonsojramos.me/music](afonsojramos.me/music).
 
 ![image](https://user-images.githubusercontent.com/19473034/142782818-40620f75-f867-44b6-84ac-5cafcabbfcc9.png)
 
