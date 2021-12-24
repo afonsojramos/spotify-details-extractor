@@ -3,20 +3,19 @@
 
 Simple browser extension to extract Spotify details from an album page in a specific JSON object. You can find it in any context menu/extension bar near you!
 
-<p align="center"><table><tr>
-<td valign="center"><img src="https://user-images.githubusercontent.com/19473034/147307876-bc991613-cbe9-472d-9eb3-0389a4defd6e.png"></td>
-<td><img src="https://user-images.githubusercontent.com/19473034/147306510-e4beba47-4dff-4097-a9cf-c6584e575706.png"></td>
-</tr></table><p align="center">
-
-**PS**: This extension is actually not that intrusive and will actually only show up in the context menu when you are in the Spotify Web App. Furthermore, since they capture the user's `Right Click`, you need to press `Shift` + `Right Click` for it to show up.
+**PS**: This extension tries to be the least intrusive possible and will actually only show up in the context menu when you are in the Spotify Web App in the case of the Firefox browser. On Chromium, the extension will show as disabled in other websites. Additionally, in Firefox, since Spotify captures the user's `Right Click`, you need to press `Shift` + `Right Click` for it to show up. This does not work in Chromium, which is why the implementation is different.
 
 ## Installation
 
 ### Firefox
 
+<p align="center"><img src="https://user-images.githubusercontent.com/19473034/147307876-bc991613-cbe9-472d-9eb3-0389a4defd6e.png"><p>
+
 Navigate to `about:addons`, select **Install Add-on From File...** and choose the `.xpi` extension that you've downloaded from the [GitHub releases page](https://github.com/afonsojramos/spotify-details-extractor/releases/latest).
 
 ### Chromium
+
+<p align="center"><img src="https://user-images.githubusercontent.com/19473034/147306510-e4beba47-4dff-4097-a9cf-c6584e575706.png"><p>
 
 Navigate to `chrome://extensions` and drag the `.crx` extension that you've downloaded from the [GitHub releases page](https://github.com/afonsojramos/spotify-details-extractor/releases/latest).
 
@@ -37,7 +36,7 @@ Each entry is constructed by the following JSON schema:
 
 The resulting page can be seen in [afonsojramos.me/music](afonsojramos.me/music).
 
-![image](https://user-images.githubusercontent.com/19473034/142782818-40620f75-f867-44b6-84ac-5cafcabbfcc9.png)
+<p align="center"><img src="https://user-images.githubusercontent.com/19473034/142782818-40620f75-f867-44b6-84ac-5cafcabbfcc9.png"><p>
 
 However, the process of extracting the details from the album page is quite tedious as I have to **manually** copy the album's URL, extract the album's title, artist and image URL. All of this requires the opening of the developer's console and makes the process rather slow.
 
@@ -48,6 +47,8 @@ Therefore, I decided to create a browser extension that will **extract the detai
 Initially, I was going to create an extension that would create a in-page button that would trigger the events. I was somewhat successful in this, but the process of creating said button that would align with spotify's design language meant more waiting time for page loads, and less reliability, as sometimes the page would say that alledgedly it was loaded, however, not all elements were already created, which led to failures in creating the button.
 
 With this in mind, on v2 I shifted to a simple context menu that would trigger said events. This also proved to be way more reliable and faster than the previous approach.
+
+This does not work in Chromium, which is why the implementation shifted towards an action button, *ie*, the extension button.
 
 ## Publishing
 
