@@ -1,11 +1,12 @@
-<h3 align="center"><img src="https://user-images.githubusercontent.com/19473034/147299199-f19334ba-5612-4e5f-8ad2-ea4eeddfe873.png" width="150px"></h3>
-<h1 align="center">
-  Spotify Details Extractor 🎶
-</h1>
+<h3 align="center"><img src="https://user-images.githubusercontent.com/19473034/147307719-faf4a334-6e5d-4153-8d47-c03c83276e57.png" width="150px"></h3>
+<h1 align="center"> Spotify Details Extractor 🎶 </h1>
 
-Simple browser extension to extract Spotify details from an album page in a specific JSON object. You can find it in any context menu near you!
+Simple browser extension to extract Spotify details from an album page in a specific JSON object. You can find it in any context menu/extension bar near you!
 
-![image](https://user-images.githubusercontent.com/19473034/147299231-8e158259-815d-4759-a4db-32d05a42102f.png)
+<p align="center"><table><tr>
+<td valign="center"><img src="https://user-images.githubusercontent.com/19473034/147307876-bc991613-cbe9-472d-9eb3-0389a4defd6e.png"></td>
+<td><img src="https://user-images.githubusercontent.com/19473034/147306510-e4beba47-4dff-4097-a9cf-c6584e575706.png"></td>
+</tr></table><p align="center">
 
 **PS**: This extension is actually not that intrusive and will actually only show up in the context menu when you are in the Spotify Web App. Furthermore, since they capture the user's `Right Click`, you need to press `Shift` + `Right Click` for it to show up.
 
@@ -13,13 +14,17 @@ Simple browser extension to extract Spotify details from an album page in a spec
 
 ### Firefox
 
-Navigate to `about:addons`, select **Install Add-on From File...** and choose the extension that you've downloaded from the [GitHub releases page](https://github.com/afonsojramos/spotify-details-extractor/releases/latest).
+Navigate to `about:addons`, select **Install Add-on From File...** and choose the `.xpi` extension that you've downloaded from the [GitHub releases page](https://github.com/afonsojramos/spotify-details-extractor/releases/latest).
+
+### Chromium
+
+Navigate to `chrome://extensions` and drag the `.crx` extension that you've downloaded from the [GitHub releases page](https://github.com/afonsojramos/spotify-details-extractor/releases/latest).
 
 ## Motivation
 
 Currently, my personal website uses a [JSON Database](https://github.com/afonsojramos/afonsojramos.me/blob/main/data/music.json) to store the details of my favorite albums of the year.
 
-Each entry is contructed by the following JSON schema:
+Each entry is constructed by the following JSON schema:
 
 ```json
 {
