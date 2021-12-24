@@ -1,0 +1,7 @@
+{
+  "name": "Spotify Details Extractor",
+  "description": "Spicetify extension to extract Spotify details from an album page in a specific JSON object.",
+  "preview": "chromium/icons/icon128.png",
+  "main": "spicetify/extractor.js",
+  "readme": "README.md"
+}
