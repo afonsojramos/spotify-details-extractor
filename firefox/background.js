@@ -18,7 +18,7 @@ function onExecuted() {
   querying.then(messageTab);
 }
 
-browser.contextMenus.onClicked.addListener(function (info, tab) {
+browser.contextMenus.onClicked.addListener(function (info, _tab) {
   if (info.menuItemId == 'extract-album') {
     let executing = browser.tabs.executeScript({
       file: 'extractor.js',
