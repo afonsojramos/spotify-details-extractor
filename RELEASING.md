@@ -1,14 +1,17 @@
 
 ## Installation and Compilation
 
-## Chrome
+## Chromium
 
-1. [Check the latest release page](https://github.com/aquelemiguel/yt-restore-dislikes/releases/latest). Download and unzip `chromium.zip`.
-2. Once you've generated your API key, open `chromium/script.js` and replace the `YT_API_KEY` variable with your own key (paste between the double quotes).
-3. Navigate to your browser's extensions page. It's `chrome://extensions` for Chrome and `edge://extensions` for Edge and **enable developer mode**.
-4. Click **Load Unpacked** and, in your unzipped folder, select the `/chromium` directory.
+### Development
 
-More reference on how to manually install Chrome extensions [here](https://developer.chrome.com/docs/extensions/mv3/getstarted/#manifest).
+Chromium only requires you to go to `chrome://extensions`, activating **Developer Mode** and `Load Unpacked` by selecting the folder that you have the extension on. No need to zip it or package it in any way. More reference on how to manually install Chrome extensions [here](https://developer.chrome.com/docs/extensions/mv3/getstarted/#manifest).
+
+### Release
+
+In order to release, all you need to do is select `Pack Extension` under `chrome://extensions`, select the folder and that's it! Remeber to save the key somewhere safe to generate new versions of the extension.
+
+Then, if you want, you may upload the `.crx` archive to the [Chrome Web Store Dev Console](https://chrome.google.com/webstore/devconsole/).
 
 ## Firefox
 
@@ -26,4 +29,4 @@ In order to release, you first need to build the `.zip` file inside a new `/web-
 
 Afterwards, you need to sign the extension. For this you'll need to generate your [addons.mozilla.org credentials](https://addons.mozilla.org/en-GB/developers/addon/api/key/).
 
-Then, simply run the following command `web-ext sign --api-key=JWT_ISSUER --api-secret=JWT_SECRET` with the API key and secret parameters that you generated. The new `.xpi` file can also be found in the `/web-ext-artifacts` directory.
+Then, simply run the following command `web-ext sign -s firefox --api-key=JWT_ISSUER --api-secret=JWT_SECRET` with the API key and secret parameters that you generated. The new `.xpi` file can also be found in the `/web-ext-artifacts` directory.
