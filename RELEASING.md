@@ -11,7 +11,7 @@ Chromium only requires you to go to `chrome://extensions`, activating **Develope
 
 In order to release, all you need to do is select `Pack Extension` under `chrome://extensions`, select the folder and that's it! Remeber to save the key somewhere safe to generate new versions of the extension.
 
-Then, if you want, you may upload the `.crx` archive to the [Chrome Web Store Dev Console](https://chrome.google.com/webstore/devconsole/).
+Alternatively, you may, using 7-Zip, run `zip -r dist/spotify-details-extractor.zip .\chromium\` (Unix) or `7z a -tzip dist/spotify-details-extractor.zip .\chromium\` (Windows), and then upload the archive to the [Chrome Web Store Dev Console](https://chrome.google.com/webstore/devconsole/). Finally, you will find the `.crx` extension under the Package tab. This one will be signed and will now show any warning when installing.
 
 ## Firefox
 
