@@ -19,6 +19,12 @@ Navigate to `about:addons`, select **Install Add-on From File...** and choose th
 
 Navigate to `chrome://extensions` and drag the `.crx` extension that you've downloaded from the [GitHub releases page](https://github.com/afonsojramos/spotify-details-extractor/releases/latest).
 
+### Spicetify
+
+<p align="center"><img src="https://user-images.githubusercontent.com/19473034/147316727-77960f1e-2e61-4922-bfaa-3a9c6f15811f.png"><p>
+
+Install it through the [Spicetify Marketplace](https://github.com/CharlieS1103/spicetify-marketplace) or [manually](https://spicetify.app/docs/getting-started/extensions).
+
 ## Motivation
 
 Currently, my personal website uses a [JSON Database](https://github.com/afonsojramos/afonsojramos.me/blob/main/data/music.json) to store the details of my favorite albums of the year.
