@@ -59,3 +59,10 @@ This does not work in Chromium, which is why the implementation shifted towards 
 ## Publishing
 
 As this extension is purely meant to be self-serving, I don't think that it is necessary to publish this extension in any of the browser stores as it is not meant to be used by anyone. But if you do find it useful, feel free to install it from the [GitHub releases page](https://github.com/afonsojramos/spotify-details-extractor/releases/latest)!
+
+## More
+🌟 Like it? Gimme some love!    
+[![Github Stars badge](https://img.shields.io/github/stars/afonsojramos/spotify-details-extractor?logo=github&style=social)](https://github.com/afonsojramos/spotify-details-extractor/)
+
+If you find any bugs or places where podcasts are still showing up, please [create a new issue](https://github.com/theRealPadster/spicetify-hide-podcasts/issues/new/choose) on the GitHub repo.    
+![https://github.com/afonsojramos/spotify-details-extractor/issues](https://img.shields.io/github/issues/afonsojramos/spotify-details-extractor?logo=github)
