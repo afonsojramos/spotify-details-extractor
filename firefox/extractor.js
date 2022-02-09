@@ -5,7 +5,7 @@ extractorReceiver = () => {
   album = {
     title: document.querySelector('h1').innerText,
     artist:
-      document.querySelector('div > h2 + span + div > div > a')?.innerText ||
+      document.querySelector('div > h2 + span + div > div a')?.innerText ||
       artists.reduce((artist, artistSum) => `${artist}, ${artistSum}`),
     image: document.querySelector('section > div > div > div > img').src,
     url: window.location.href.match(/https:\/\/open\.spotify\.com\/\w*\/\w*/)[0],
