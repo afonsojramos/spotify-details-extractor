@@ -24,7 +24,7 @@
           document.querySelector('div > h2 + span + div > div a')?.innerText ||
           artists.reduce((artist, artistSum) => `${artist}, ${artistSum}`),
         image: document.querySelector('section > div > div > div > img').currentSrc,
-        url: Spicetify.URI.fromString(uris[0]).toURL(),
+        url: Spicetify.URI.fromString(uris[0]).toURL().replace("play","open"),
       };
       Spicetify.CosmosAsync.put('sp://desktop/v1/clipboard', album);
       success(album.title);
