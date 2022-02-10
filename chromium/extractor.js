@@ -1,5 +1,5 @@
 artists = [];
-document.querySelectorAll('div > h2 + span + div > a').forEach((artist) => artists.push(artist.innerHTML));
+document.querySelectorAll('div > h2 + span + div a').forEach((artist) => artists.push(artist.innerHTML));
 
 album = {
   title: document.querySelector('h1').innerText,
