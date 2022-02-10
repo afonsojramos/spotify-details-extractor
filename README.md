@@ -7,13 +7,13 @@ Simple browser extension to extract Spotify details from an album page in a spec
 
 ## Installation
 
-### Firefox
+### Firefox - [Firefox Add-ons](https://addons.mozilla.org/en-GB/firefox/addon/48ead2924fbe48ca87de/)
 
 <p align="center"><img src="https://user-images.githubusercontent.com/19473034/147307876-bc991613-cbe9-472d-9eb3-0389a4defd6e.png"><p>
 
 Navigate to `about:addons`, select **Install Add-on From File...** and choose the `.xpi` extension that you've downloaded from the [GitHub releases page](https://github.com/afonsojramos/spotify-details-extractor/releases/latest).
 
-### Chromium
+### Chromium - [Web Store](https://chrome.google.com/webstore/detail/spotify-details-extractor/kfpkjhjengocbiaipfcbdhpjbaenkanb?hl=en)
 
 <p align="center"><img src="https://user-images.githubusercontent.com/19473034/147306510-e4beba47-4dff-4097-a9cf-c6584e575706.png"><p>
 
