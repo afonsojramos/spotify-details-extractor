@@ -2,3 +2,4 @@
 *.pem
 *.xpi
 *.zip
+node_modules

@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "spicetify": "spicetify enable-devtools & spicetify watch -le",
+    "dev": "pnpm watch & pnpm spicetify",
+    "watch": "onchange 'extractor.js' -- pnpm copy",
+    "copy": "cp extractor.js ~/.spicetify/Extensions",
+    "setup": "spicetify config extensions extractor.js"
+  },
+  "dependencies": {
+    "@types/react": "^18.2.6",
+    "onchange": "^7.1.0"
+  }
+}
