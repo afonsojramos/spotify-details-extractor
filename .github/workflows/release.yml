@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  [push]
+  # release:
+  #   types: [created]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Chromium
+        run: pnpm run chromium:build
+
+      - name: Build Firefox
+        run: pnpm run firefox:build
+
+      - name: Rename files
+        run: |
+          mv web-ext-artifacts/spotify_details_extractor-${{ github.ref_name }}.zip spotify-details-extractor-firefox.zip
+          mv spicetify/extractor.js spotify-details-extractor-spicetify.js
+
+      # - name: Upload Linux release assets
+      #   env:
+      #     GH_TOKEN: ${{ github.token }}
+      #   run: |
+      #     gh release upload ${{ github.ref_name }} spotify-details-extractor-firefox.zip
+      #     gh release upload ${{ github.ref_name }} spotify-details-extractor-spicetify.js
+      #     gh release upload ${{ github.ref_name }} spotify-details-extractor-chromium.zip
