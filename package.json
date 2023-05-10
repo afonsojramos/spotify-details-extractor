@@ -1,5 +1,9 @@
 {
   "scripts": {
+    "chromium:build": "zip -r spotify-details-extractor-chromium.zip ./chromium/",
+    "firefox:dev": "web-ext run -s firefox",
+    "firefox:build": "web-ext build -s firefox",
+    "firefox:release": "web-ext sign -s firefox --api-key=$JWT_ISSUER --api-secret=$JWT_SECRET",
     "spicetify": "spicetify enable-devtools & spicetify watch -le",
     "dev": "pnpm watch & pnpm spicetify",
     "watch": "onchange 'extractor.js' -- pnpm copy",
@@ -8,6 +12,7 @@
   },
   "dependencies": {
     "@types/react": "^18.2.6",
-    "onchange": "^7.1.0"
+    "onchange": "^7.1.0",
+    "web-ext": "^7.6.2"
   }
 }

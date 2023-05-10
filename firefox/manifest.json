@@ -2,17 +2,11 @@
   "name": "Spotify Details Extractor",
   "description": "Extract the most important details of an album to the desired JSON.",
   "manifest_version": 2,
-  "version": "2.4.2",
+  "version": "2.5.0",
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "scripts": ["background.js"]
   },
-  "permissions": [
-    "tabs",
-    "*://*.spotify.com/*",
-    "contextMenus"
-  ],
+  "permissions": ["tabs", "*://*.spotify.com/*", "contextMenus"],
   "icons": {
     "32": "/icons/icon32.png",
     "48": "/icons/icon48.png",
