@@ -1,9 +1,8 @@
 name: Release
 
 on:
-  [push]
-  # release:
-  #   types: [created]
+  release:
+    types: [created]
 
 permissions:
   contents: write
@@ -34,10 +33,10 @@ jobs:
           mv web-ext-artifacts/spotify_details_extractor-${{ github.ref_name }}.zip spotify-details-extractor-firefox.zip
           mv spicetify/extractor.js spotify-details-extractor-spicetify.js
 
-      # - name: Upload Linux release assets
-      #   env:
-      #     GH_TOKEN: ${{ github.token }}
-      #   run: |
-      #     gh release upload ${{ github.ref_name }} spotify-details-extractor-firefox.zip
-      #     gh release upload ${{ github.ref_name }} spotify-details-extractor-spicetify.js
-      #     gh release upload ${{ github.ref_name }} spotify-details-extractor-chromium.zip
+      - name: Upload Linux release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload ${{ github.ref_name }} spotify-details-extractor-firefox.zip
+          gh release upload ${{ github.ref_name }} spotify-details-extractor-spicetify.js
+          gh release upload ${{ github.ref_name }} spotify-details-extractor-chromium.zip
