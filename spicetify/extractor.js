@@ -4,7 +4,7 @@
 // AUTHOR: afonsojramos
 // DESCRIPTION: Extracts album information from Spotify.
 
-/// <reference path="globals.d.ts" />
+/// <reference path="./globals.d.ts" />
 
 (function SpotifyDetailsExtractor() {
   if (!Spicetify.CosmosAsync || !Spicetify.Platform) {
@@ -13,21 +13,34 @@
   }
 
   const cntxMenu = new Spicetify.ContextMenu.Item(
-    'Extract Album Info',
+    "Extract Album Info",
     (uris) => {
-      const artists = [];
-      document.querySelectorAll('div > h2 + span + div a').forEach((artist) => artists.push(artist.innerHTML));
+      try {
+        const artists = [];
+        document
+          .querySelectorAll("section > div:first-child > div > div span > a")
+          .forEach((artist) => artists.push(artist.innerHTML));
 
-      const album = {
-        title: document.querySelector('h1').innerText,
-        artist:
-          document.querySelector('div > h2 + span + div > div a')?.innerText ||
-          artists.reduce((artist, artistSum) => `${artist}, ${artistSum}`),
-        image: document.querySelector('section > div > div > div > img').currentSrc,
-        url: Spicetify.URI.fromString(uris[0]).toURL().replace("play","open"),
-      };
-      Spicetify.CosmosAsync.put('sp://desktop/v1/clipboard', album);
-      success(album.title);
+        const album = {
+          title: document.querySelector("h1")?.innerText || "",
+          artist:
+            artists.length === 1
+              ? artists[0]
+              : artists.reduce(
+                  (artist, artistSum) => `${artist}, ${artistSum}`
+                ),
+          // @ts-ignore
+          image: document.querySelector("section > div > div > div > img").src,
+          url: Spicetify.URI.fromString(uris[0])
+            .toURL()
+            .replace("play", "open"),
+        };
+        Spicetify.CosmosAsync.put("sp://desktop/v1/clipboard", album);
+        success(album.title);
+      } catch (e) {
+        console.error(e);
+        Spicetify.showNotification("Something went wrong. Please try again.");
+      }
     },
     (uris) => {
       if (uris.length === 1) {
@@ -42,7 +55,7 @@
       // User selects multiple tracks in a list.
       return false;
     },
-    'download'
+    "download"
   );
   cntxMenu.register();
 
