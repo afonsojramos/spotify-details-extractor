@@ -23,7 +23,7 @@ Navigate to `chrome://extensions` and drag the `.crx` extension that you've down
 
 <p align="center"><img src="https://user-images.githubusercontent.com/19473034/147316727-77960f1e-2e61-4922-bfaa-3a9c6f15811f.png"><p>
 
-Install it through the [Spicetify Marketplace](https://github.com/CharlieS1103/spicetify-marketplace) or [manually](https://spicetify.app/docs/getting-started/extensions).
+Install it through the [Spicetify Marketplace](https://github.com/spicetify/spicetify-marketplace) or [manually](https://spicetify.app/docs/advanced-usage/extensions).
 
 ## Motivation
 
