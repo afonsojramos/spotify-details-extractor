@@ -1,14 +1,17 @@
 {
   "scripts": {
     "chromium:build": "zip -r spotify-details-extractor-chromium.zip ./chromium/",
+    "firefox:version": "sed -i '' -e 's/\"version\": \".*\"/\"version\": \"$(git describe --tags --abbrev=0)\"/' ./firefox/manifest.json",
     "firefox:dev": "web-ext run -s firefox",
-    "firefox:build": "web-ext build -s firefox",
+    "firefox:build": "web-ext build -s firefox --overwrite-dest",
+    "chromium:version": "sed -i '' -e 's/\"version\": \".*\"/\"version\": \"$(git describe --tags --abbrev=0)\"/' ./chromium/manifest.json",
     "firefox:release": "web-ext sign -s firefox --api-key=$JWT_ISSUER --api-secret=$JWT_SECRET",
     "spicetify": "spicetify enable-devtools & spicetify watch -le",
     "dev": "pnpm watch & pnpm spicetify",
     "watch": "onchange 'extractor.js' -- pnpm copy",
     "copy": "cp extractor.js ~/.spicetify/Extensions",
-    "setup": "spicetify config extensions extractor.js"
+    "setup": "spicetify config extensions extractor.js",
+    "upgrade": "pnpm chromium:version && pnpm firefox:version"
   },
   "dependencies": {
     "@types/react": "^18.2.6",

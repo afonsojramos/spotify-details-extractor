@@ -28,6 +28,12 @@ jobs:
       - name: Build Firefox
         run: pnpm run firefox:build
 
+      - name: Release Firefox
+        run: pnpm run firefox:release
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_ISSUER: ${{ secrets.JWT_ISSUER }}
+
       - name: Rename files
         run: |
           mv web-ext-artifacts/spotify_details_extractor-${{ github.ref_name }}.zip spotify-details-extractor-firefox.zip
