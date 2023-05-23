@@ -7,18 +7,47 @@ Simple browser extension to extract Spotify details from an album page in a spec
 
 ## Installation
 
-<!-- create a copy of the following table but centred -->
-<div align="center">
+<table align="center">
+  <tr>
+    <th>
+      Browser Download
+    </th>
+    <th>
+      Usage Example
+    </th>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://addons.mozilla.org/en-GB/firefox/addon/spotify-details-extractor/"><img width="300" src="https://github.com/afonsojramos/spotify-details-extractor/assets/19473034/79153f53-0f0f-48e0-aea5-e4cd6d41d8e7"></a>
+    </td>
+    <td align="center">
+      <img src="https://user-images.githubusercontent.com/19473034/147307876-bc991613-cbe9-472d-9eb3-0389a4defd6e.png">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://chrome.google.com/webstore/detail/spotify-details-extractor/kfpkjhjengocbiaipfcbdhpjbaenkanb?hl=en">
+        <img  width="300" src="https://github.com/afonsojramos/spotify-details-extractor/assets/19473034/32948c57-0467-4e0d-8f25-e74814b91355">
+      </a>
+    </td>
+    <td align="center">
+      <img src="https://user-images.githubusercontent.com/19473034/147306510-e4beba47-4dff-4097-a9cf-c6584e575706.png">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://spicetify.app">
+        <img width="300" src="https://github.com/afonsojramos/spotify-details-extractor/assets/19473034/6bd6b76e-18c4-474a-b256-fd02e5bf9069">
+      </a>
+      <br/>
+      <a href="https://github.com/spicetify/spicetify-marketplace">Spicetify Marketplace</a> or <a href="https://spicetify.app/docs/advanced-usage/extensions">manually</a>.
+    </td>
+    <td align="center">
+      <img src="https://user-images.githubusercontent.com/19473034/147316727-77960f1e-2e61-4922-bfaa-3a9c6f15811f.png">
+    </td>
+  </tr>
+</table>
 
-
-
-| Browser | Download | Usage Example |
-| --- | --- | --- |
-| Firefox | [Firefox Add-ons](https://addons.mozilla.org/en-GB/firefox/addon/spotify-details-extractor/) | <p align="center"><img src="https://user-images.githubusercontent.com/19473034/147307876-bc991613-cbe9-472d-9eb3-0389a4defd6e.png"></p> |
-| Chromium | [Web Store](https://chrome.google.com/webstore/detail/spotify-details-extractor/kfpkjhjengocbiaipfcbdhpjbaenkanb?hl=en) | <p align="center"><img src="https://user-images.githubusercontent.com/19473034/147306510-e4beba47-4dff-4097-a9cf-c6584e575706.png"></p> |
-| Spicetify | [Spicetify Marketplace](https://github.com/spicetify/spicetify-marketplace) or [manually](https://spicetify.app/docs/advanced-usage/extensions). | <p align="center"><img src="https://user-images.githubusercontent.com/19473034/147316727-77960f1e-2e61-4922-bfaa-3a9c6f15811f.png"></p> |
-
-</div>
 ## Manual Installation
 
 ### Firefox
