@@ -10,19 +10,39 @@
  * Cross-platform CLI binaries are produced by the release workflow; local
  * `bun run build` only compiles for the host.
  */
-import { mkdir, rm, cp, writeFile } from "node:fs/promises";
+import { mkdir, rm, cp, writeFile, readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { SOURCES } from "../src/shared/sources";
 
 const root = new URL("..", import.meta.url).pathname;
 const dist = join(root, "dist");
 
 const browserTargets = ["chromium", "firefox"] as const;
 
+/**
+ * Copies the manifest and injects `host_permissions` + `content_scripts`
+ * generated from the `SOURCES` list. Source manifests deliberately omit
+ * these fields so adding a new source only requires editing the source
+ * definition, not both manifests.
+ */
+async function writeBrowserManifest(srcPath: string, outPath: string) {
+  const manifest = JSON.parse(await readFile(srcPath, "utf8"));
+  manifest.host_permissions = SOURCES.flatMap((s) => [...s.hostPermissions]);
+  manifest.content_scripts = SOURCES
+    .filter((s) => s.contentScriptMatches.length > 0)
+    .map((s) => ({
+      matches: [...s.contentScriptMatches],
+      js: [`${s.id}-menu.js`],
+      run_at: "document_idle",
+    }));
+  await writeFile(outPath, JSON.stringify(manifest, null, 2) + "\n");
+}
+
 async function buildBrowser(target: (typeof browserTargets)[number]) {
   const src = join(root, "src", target);
   const out = join(dist, target);
   await mkdir(out, { recursive: true });
-  await cp(join(src, "manifest.json"), join(out, "manifest.json"));
+  await writeBrowserManifest(join(src, "manifest.json"), join(out, "manifest.json"));
   await cp(join(src, "icons"), join(out, "icons"), { recursive: true });
 
   const result = await Bun.build({

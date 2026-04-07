@@ -15,19 +15,6 @@
   },
   "action": {},
   "permissions": ["scripting", "tabs", "contextMenus", "notifications", "clipboardWrite", "activeTab"],
-  "host_permissions": ["*://*.spotify.com/*", "*://*.qobuz.com/*"],
-  "content_scripts": [
-    {
-      "matches": ["*://open.spotify.com/*"],
-      "js": ["spotify-menu.js"],
-      "run_at": "document_idle"
-    },
-    {
-      "matches": ["*://play.qobuz.com/*"],
-      "js": ["qobuz-menu.js"],
-      "run_at": "document_idle"
-    }
-  ],
   "icons": {
     "32": "icons/icon32.png",
     "48": "icons/icon48.png",
