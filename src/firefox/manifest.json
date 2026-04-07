@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Spotify Details Extractor",
+  "description": "Extract the most important details of an album to the desired JSON.",
+  "version": "2.5.0",
+  "homepage_url": "https://github.com/afonsojramos/spotify-details-extractor",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{8301b4fd-b04f-40f7-be18-55f0da220794}",
+      "strict_min_version": "121.0"
+    }
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "action": {},
+  "permissions": ["scripting", "tabs", "contextMenus", "notifications", "clipboardWrite"],
+  "host_permissions": ["*://*.spotify.com/*"],
+  "icons": {
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "96": "icons/icon96.png",
+    "128": "icons/icon128.png"
+  }
+}
