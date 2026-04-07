@@ -21,6 +21,11 @@
       "matches": ["*://open.spotify.com/*"],
       "js": ["spotify-menu.js"],
       "run_at": "document_idle"
+    },
+    {
+      "matches": ["*://play.qobuz.com/*"],
+      "js": ["qobuz-menu.js"],
+      "run_at": "document_idle"
     }
   ],
   "icons": {

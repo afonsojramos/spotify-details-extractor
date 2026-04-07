@@ -24,7 +24,11 @@ async function buildBrowser(target: (typeof targets)[number]) {
   await cp(join(src, "icons"), join(out, "icons"), { recursive: true });
 
   const result = await Bun.build({
-    entrypoints: [join(src, "background.ts"), join(src, "spotify-menu.ts")],
+    entrypoints: [
+      join(src, "background.ts"),
+      join(src, "spotify-menu.ts"),
+      join(src, "qobuz-menu.ts"),
+    ],
     outdir: out,
     target: "browser",
     minify: false,
