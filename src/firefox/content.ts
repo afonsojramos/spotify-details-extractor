@@ -1,2 +1,0 @@
-import "../chromium/content";
-export {};

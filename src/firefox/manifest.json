@@ -14,7 +14,7 @@
     "scripts": ["background.js"]
   },
   "action": {},
-  "permissions": ["scripting", "tabs", "contextMenus", "notifications", "clipboardWrite"],
+  "permissions": ["scripting", "tabs", "contextMenus", "notifications", "clipboardWrite", "activeTab"],
   "host_permissions": ["*://*.spotify.com/*"],
   "icons": {
     "32": "icons/icon32.png",

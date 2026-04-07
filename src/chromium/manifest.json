@@ -8,7 +8,7 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["scripting", "tabs", "contextMenus", "notifications"],
+  "permissions": ["scripting", "tabs", "contextMenus", "notifications", "activeTab"],
   "host_permissions": ["*://*.spotify.com/*"],
   "icons": {
     "32": "icons/icon32.png",
