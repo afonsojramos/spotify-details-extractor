@@ -6,43 +6,47 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: 18
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
+          bun-version: latest
+
       - name: Install dependencies
-        run: pnpm install
+        run: bun install --frozen-lockfile
 
-      - name: Build Chromium
-        run: pnpm run chromium:build
+      - name: Typecheck
+        run: bun run typecheck
 
-      - name: Build Firefox
-        run: pnpm run firefox:build
+      - name: Build all targets
+        run: bun run build
 
-      - name: Release Firefox
-        run: pnpm run firefox:release
+      - name: Package Chromium zip
+        run: bun run chromium:zip
+
+      - name: Sign Firefox extension
+        run: bunx web-ext sign -s dist/firefox -a dist --channel=listed
         env:
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          JWT_ISSUER: ${{ secrets.JWT_ISSUER }}
+          WEB_EXT_API_KEY: ${{ secrets.JWT_ISSUER }}
+          WEB_EXT_API_SECRET: ${{ secrets.JWT_SECRET }}
 
-      - name: Rename files
+      - name: Collect and rename artifacts
         run: |
-          mv web-ext-artifacts/spotify_details_extractor-${{ github.ref_name }}.zip spotify-details-extractor-firefox.zip
-          mv spicetify/extractor.js spotify-details-extractor-spicetify.js
+          mv dist/spotify-details-extractor-chromium.zip spotify-details-extractor-chromium.zip
+          cp dist/spicetify/extractor.js spotify-details-extractor-spicetify.js
+          mv dist/spotify_details_extractor-*.xpi spotify-details-extractor-firefox.xpi
 
-      - name: Upload Linux release assets
+      - name: Upload release assets
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release upload ${{ github.ref_name }} spotify-details-extractor-firefox.zip
-          gh release upload ${{ github.ref_name }} spotify-details-extractor-spicetify.js
-          gh release upload ${{ github.ref_name }} spotify-details-extractor-chromium.zip
+          gh release upload ${{ github.ref_name }} \
+            spotify-details-extractor-chromium.zip \
+            spotify-details-extractor-firefox.xpi \
+            spotify-details-extractor-spicetify.js \
+            --clobber
