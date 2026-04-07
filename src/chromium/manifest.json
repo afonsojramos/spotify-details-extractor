@@ -10,6 +10,13 @@
   },
   "permissions": ["scripting", "tabs", "contextMenus", "notifications", "activeTab"],
   "host_permissions": ["*://*.spotify.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["*://open.spotify.com/*"],
+      "js": ["spotify-menu.js"],
+      "run_at": "document_idle"
+    }
+  ],
   "icons": {
     "32": "icons/icon32.png",
     "48": "icons/icon48.png",
