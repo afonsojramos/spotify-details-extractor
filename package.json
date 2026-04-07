@@ -1,21 +1,24 @@
 {
+  "name": "spotify-details-extractor",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "chromium:build": "zip -r spotify-details-extractor-chromium.zip ./chromium/",
-    "firefox:version": "sed -i '' -e 's/\"version\": \".*\"/\"version\": \"$(git describe --tags --abbrev=0)\"/' ./firefox/manifest.json",
-    "firefox:dev": "web-ext run -s firefox",
-    "firefox:build": "web-ext build -s firefox --overwrite-dest",
-    "chromium:version": "sed -i '' -e 's/\"version\": \".*\"/\"version\": \"$(git describe --tags --abbrev=0)\"/' ./chromium/manifest.json",
-    "firefox:release": "web-ext sign -s firefox --api-key=$JWT_ISSUER --api-secret=$JWT_SECRET",
-    "spicetify": "spicetify enable-devtools & spicetify watch -le",
-    "dev": "pnpm watch & pnpm spicetify",
-    "watch": "onchange 'extractor.js' -- pnpm copy",
-    "copy": "cp extractor.js ~/.spicetify/Extensions",
-    "setup": "spicetify config extensions extractor.js",
-    "upgrade": "pnpm chromium:version && pnpm firefox:version"
+    "build": "bun run scripts/build.ts",
+    "verify": "bun run scripts/verify.ts",
+    "typecheck": "tsc --noEmit",
+    "bump": "bun run scripts/bump-version.ts",
+    "chromium:zip": "cd dist && zip -r spotify-details-extractor-chromium.zip chromium",
+    "firefox:dev": "bun run build && web-ext run -s dist/firefox",
+    "firefox:build": "bun run build && web-ext build -s dist/firefox -a dist --overwrite-dest",
+    "firefox:release": "bun run build && web-ext sign -s dist/firefox --api-key=$JWT_ISSUER --api-secret=$JWT_SECRET",
+    "spicetify:install": "bun run build && cp dist/spicetify/extractor.js ~/.config/spicetify/Extensions/",
+    "spicetify:setup": "spicetify config extensions extractor.js",
+    "spicetify:dev": "spicetify enable-devtools & spicetify watch -le"
   },
-  "dependencies": {
-    "@types/react": "^18.2.6",
-    "onchange": "^7.1.0",
-    "web-ext": "^7.6.2"
+  "devDependencies": {
+    "@types/bun": "^1.1.0",
+    "@types/chrome": "^0.0.270",
+    "typescript": "^5.6.0",
+    "web-ext": "^8.3.0"
   }
 }
