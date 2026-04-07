@@ -25,7 +25,7 @@ const observer = new MutationObserver(() => {
     document.querySelectorAll('[role="menu"]') as NodeListOf<HTMLElement>,
   );
   for (const menu of menus) {
-    if (menu.dataset.sdeInjected === "1") continue;
+    if (menu.dataset.adeInjected === "1") continue;
     tryInject(menu);
   }
 });
@@ -53,14 +53,14 @@ function tryInject(menu: HTMLElement) {
     (e) => {
       e.preventDefault();
       e.stopPropagation();
-      chrome.runtime.sendMessage({ kind: "sde:extract", url: albumUrl });
+      chrome.runtime.sendMessage({ kind: "ade:extract", url: albumUrl });
       dismissMenu();
     },
     true,
   );
 
   menu.appendChild(fresh);
-  menu.dataset.sdeInjected = "1";
+  menu.dataset.adeInjected = "1";
 }
 
 /**

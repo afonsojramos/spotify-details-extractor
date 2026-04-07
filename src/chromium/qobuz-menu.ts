@@ -18,9 +18,12 @@ document.addEventListener(
   true,
 );
 
+const MENU_SELECTOR =
+  '[role="menu"], .contextual-menu, .context-menu, [class*="contextMenu"]';
+
 const observer = new MutationObserver(() => {
   const menus = Array.from(
-    document.querySelectorAll('[role="menu"], .contextual-menu, .context-menu, [class*="contextMenu"]') as NodeListOf<HTMLElement>,
+    document.querySelectorAll(MENU_SELECTOR) as NodeListOf<HTMLElement>,
   );
   for (const menu of menus) {
     if (menu.dataset.adeInjected === "1") continue;
@@ -50,7 +53,7 @@ function tryInject(menu: HTMLElement) {
     (e) => {
       e.preventDefault();
       e.stopPropagation();
-      chrome.runtime.sendMessage({ kind: "sde:extract", url: albumUrl });
+      chrome.runtime.sendMessage({ kind: "ade:extract", url: albumUrl });
       dismissMenu();
     },
     true,
