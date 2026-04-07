@@ -15,6 +15,9 @@
     "spicetify:setup": "spicetify config extensions extractor.js",
     "spicetify:dev": "spicetify enable-devtools & spicetify watch -le"
   },
+  "bin": {
+    "album-details-extractor": "./src/cli/index.ts"
+  },
   "devDependencies": {
     "@types/bun": "^1.1.0",
     "@types/chrome": "^0.0.270",

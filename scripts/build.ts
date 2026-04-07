@@ -5,6 +5,10 @@
  *   dist/firefox/      — MV3 unpacked extension (web-ext compatible)
  *   dist/spicetify/    — extractor.js for ~/.spicetify/Extensions
  *   dist/bookmarklet/  — minified IIFE + javascript: URL + install page
+ *   dist/cli/          — standalone single-file binary for the host platform
+ *
+ * Cross-platform CLI binaries are produced by the release workflow; local
+ * `bun run build` only compiles for the host.
  */
 import { mkdir, rm, cp, writeFile } from "node:fs/promises";
 import { join } from "node:path";
@@ -108,10 +112,31 @@ async function buildBookmarklet() {
   console.log("✓ bookmarklet");
 }
 
+async function buildCli() {
+  const out = join(dist, "cli");
+  await mkdir(out, { recursive: true });
+  // Local host build only — release workflow builds cross-platform.
+  const proc = Bun.spawn(
+    [
+      "bun",
+      "build",
+      join(root, "src/cli/index.ts"),
+      "--compile",
+      "--outfile",
+      join(out, "album-details-extractor"),
+    ],
+    { stdout: "inherit", stderr: "inherit" },
+  );
+  const code = await proc.exited;
+  if (code !== 0) throw new Error("bun build --compile failed for cli");
+  console.log("✓ cli");
+}
+
 await rm(dist, { recursive: true, force: true });
 await Promise.all([
   ...browserTargets.map(buildBrowser),
   buildSpicetify(),
   buildBookmarklet(),
+  buildCli(),
 ]);
 console.log("\nBuilt to ./dist");
