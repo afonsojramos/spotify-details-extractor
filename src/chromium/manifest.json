@@ -9,7 +9,7 @@
     "service_worker": "background.js"
   },
   "permissions": ["scripting", "tabs", "contextMenus", "notifications", "activeTab"],
-  "host_permissions": ["*://*.spotify.com/*"],
+  "host_permissions": ["*://*.spotify.com/*", "*://*.qobuz.com/*"],
   "content_scripts": [
     {
       "matches": ["*://open.spotify.com/*"],
