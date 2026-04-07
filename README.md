@@ -3,7 +3,16 @@
 
 Simple browser extension to extract Spotify details from an album page in a specific JSON object. You can find it in any context menu/extension bar near you!
 
-**PS**: This extension tries to be the least intrusive possible and will only show up in the context menu when you are in the Spotify Web App in the case of the Firefox browser. On Chromium, the extension will show as disabled on other websites. Additionally, in Firefox, since Spotify captures the user's `Right Click`, you need to press `Shift` + `Right Click` for it to show up. This does not work in Chromium, which is why the implementation is different.
+## How to trigger it
+
+The browser extensions (Chromium and Firefox) support four different ways to extract album info — pick whichever fits your flow:
+
+1. **Spotify's own right-click menu** — right-click any album card, row, or tile inside the Spotify Web App. An **Extract Album Info** entry is injected into Spotify's native context menu.
+2. **Browser right-click on an album link** — right-click any `open.spotify.com/album/...` link *anywhere on the web* (a blog post, a tweet, a Slack message). An **Extract Album Info** entry appears in your browser's own context menu, courtesy of `contexts: ["link"]`.
+3. **Browser right-click on the album page** — right-click the page background while on an album. On Firefox you'll need **Shift+Right-Click** because Spotify swallows the normal right-click.
+4. **Toolbar button** — click the extension icon in your browser's toolbar. It's only enabled on album pages; on other sites the icon is greyed out.
+
+The Spicetify version exposes a single entry in Spotify desktop's native context menu, also labelled **Extract Album Info**.
 
 ## Installation
 
