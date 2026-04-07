@@ -3,4 +3,7 @@
 *.xpi
 *.zip
 node_modules
-dist
+dist/*
+!dist/spicetify
+dist/spicetify/*
+!dist/spicetify/extractor.js
