@@ -44,8 +44,8 @@ chrome.contextMenus?.onClicked.addListener((info, tab) => {
 // --- Toolbar button --------------------------------------------------------
 
 chrome.action?.onClicked.addListener((tab) => {
-  if (tab?.id != null && isAlbumUrl(tab.url)) {
-    void handleExtract(tab.id, tab.url!);
+  if (tab?.id != null && tab.url && isAlbumUrl(tab.url)) {
+    void handleExtract(tab.id, tab.url);
   }
 });
 
@@ -63,15 +63,17 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
 // --- Messages from in-page content scripts --------------------------------
 
 chrome.runtime.onMessage.addListener((msg, sender) => {
-  if (msg && typeof msg === "object" && msg.kind === "sde:extract" && sender.tab?.id != null) {
+  if (msg && typeof msg === "object" && msg.kind === "ade:extract" && sender.tab?.id != null) {
     void handleExtract(sender.tab.id, msg.url);
   }
 });
 
 // --- Core flow -------------------------------------------------------------
 
-async function handleExtract(tabId: number, rawUrl: string) {
-  const url = rawUrl.split("?")[0]!.split("#")[0]!;
+async function handleExtract(tabId: number, url: string) {
+  // No pre-processing: each source owns its own URL parsing and query/fragment
+  // handling. Spotify tolerates `?highlight=` via its embed endpoint; Qobuz
+  // extracts the id from the path segments.
   const result = await extractAlbumFromUrl(url);
 
   if (!result.ok) {
