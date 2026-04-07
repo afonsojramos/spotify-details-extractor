@@ -1,32 +1,61 @@
+# Releasing
 
-## Installation and Compilation
+All sources live under `src/`. The build emits ready-to-load extensions into
+`dist/{chromium,firefox,spicetify}`.
+
+```sh
+bun install
+bun run build       # → dist/
+bun run typecheck   # tsc --noEmit
+bun run verify      # smoke-tests extractor against live Spotify
+```
+
+To bump the version in both manifests from the latest git tag:
+
+```sh
+bun run bump
+```
 
 ## Chromium
 
 ### Development
 
-Chromium only requires you to go to `chrome://extensions`, activate **Developer Mode** and `Load Unpacked` by selecting the folder that you have the extension on. No need to zip it or package it in any way. More reference on how to manually install Chrome extensions [here](https://developer.chrome.com/docs/extensions/mv3/getstarted/#manifest).
+Go to `chrome://extensions`, enable **Developer Mode** and **Load Unpacked**,
+selecting `dist/chromium`. Reload after every `bun run build`.
 
 ### Release
 
-In order to release, all you need to do is select `Pack Extension` under `chrome://extensions`, select the folder and that's it! Remember to save the key somewhere safe to generate new versions of the extension.
+```sh
+bun run build
+bun run chromium:zip    # → dist/spotify-details-extractor-chromium.zip
+```
 
-Alternatively, you may, using 7-Zip, run `zip -r dist/spotify-details-extractor.zip .\chromium\` (Unix) or `7z a -tzip dist/spotify-details-extractor.zip .\chromium\` (Windows), and then upload the archive to the [Chrome Web Store Dev Console](https://chrome.google.com/webstore/devconsole/). Finally, you will find the `.crx` extension under the Package tab. This one will be signed and will now show any warning when installing.
+Upload the zip to the [Chrome Web Store Dev Console](https://chrome.google.com/webstore/devconsole/).
 
 ## Firefox
 
-Firefox add-ons, before generating an installable `.xpi` file, must be digitally signed by Mozilla, which can be a tiny bit tedious. 
-
-First of all, install the `web-ext` tool with the following `npm install -g web-ext`.
+Firefox is now MV3 (`browser_specific_settings.gecko.strict_min_version: 121`).
 
 ### Development
 
-Development is very streamlined with its own self-contained browser session using the following command `web-ext run -s firefox`.
+```sh
+bun run firefox:dev     # builds + launches a temporary Firefox profile
+```
 
 ### Release
 
-In order to release, you first need to build the `.zip` file inside a new `/web-ext-artifacts` directory, which can also be loaded as a temporary extension in Firefox through the `about:debugging` page with the following: `web-ext build -s firefox --overwrite-dest`.
+```sh
+JWT_ISSUER=… JWT_SECRET=… bun run firefox:release
+```
 
-Afterwards, you need to sign the extension. For this you'll need to generate your [addons.mozilla.org credentials](https://addons.mozilla.org/en-GB/developers/addon/api/key/).
+This builds and signs in one step. Generate API credentials at
+<https://addons.mozilla.org/en-GB/developers/addon/api/key/>. The signed `.xpi`
+lands in `dist/`.
 
-Then, simply run the following command `web-ext sign -s firefox --api-key=JWT_ISSUER --api-secret=JWT_SECRET` with the API key and secret parameters that you generated. The new `.xpi` file can also be found in the `/web-ext-artifacts` directory.
+## Spicetify
+
+```sh
+bun run spicetify:install   # build + copy extractor.js into ~/.config/spicetify/Extensions
+bun run spicetify:setup     # one-time: spicetify config extensions extractor.js
+bun run spicetify:dev       # spicetify watch -le for live reload
+```

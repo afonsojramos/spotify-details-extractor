@@ -95,5 +95,5 @@ With this in mind, `v2` shifted to a simple context menu on Firefox and the exte
 🌟 Like it? Gimme some love!    
 [![Github Stars badge](https://img.shields.io/github/stars/afonsojramos/spotify-details-extractor?logo=github&style=social)](https://github.com/afonsojramos/spotify-details-extractor/)
 
-If you find any bugs or places where podcasts are still showing up, please [create a new issue](https://github.com/afonsojramos/spotify-details-extractor/issues/new/choose) on the GitHub repo.    
+If you find any bugs, please [create a new issue](https://github.com/afonsojramos/spotify-details-extractor/issues/new/choose) on the GitHub repo. Podcast and show pages are filtered out automatically.    
 ![https://github.com/afonsojramos/spotify-details-extractor/issues](https://img.shields.io/github/issues/afonsojramos/spotify-details-extractor?logo=github)
