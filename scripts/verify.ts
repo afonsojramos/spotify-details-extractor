@@ -26,8 +26,8 @@ const cases: Case[] = [
     expectAlbum: true,
   },
   {
-    label: "Spotify / podcast show (should reject)",
-    url: "https://open.spotify.com/show/4rOoJ6Egrf8K2IrywzwOMk",
+    label: "Spotify / Más Influências podcast (should reject)",
+    url: "https://open.spotify.com/show/5xrGlmos4BtbmZR7g4wAzK",
     expectAlbum: false,
   },
   {
