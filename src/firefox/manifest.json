@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Spotify Details Extractor",
-  "description": "Extract the most important details of an album to the desired JSON.",
+  "name": "Album Details Extractor",
+  "description": "Extract the most important details of an album (Spotify, Qobuz) to the desired JSON.",
   "version": "3.0.0",
-  "homepage_url": "https://github.com/afonsojramos/spotify-details-extractor",
+  "homepage_url": "https://github.com/afonsojramos/album-details-extractor",
   "browser_specific_settings": {
     "gecko": {
       "id": "{8301b4fd-b04f-40f7-be18-55f0da220794}",

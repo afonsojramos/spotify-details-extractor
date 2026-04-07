@@ -1,18 +1,44 @@
 <h3 align="center"><img src="https://user-images.githubusercontent.com/19473034/147307719-faf4a334-6e5d-4153-8d47-c03c83276e57.png" width="150px"></h3>
-<h1 align="center"> Spotify Details Extractor 🎶 </h1>
+<h1 align="center"> Album Details Extractor 🎶 </h1>
 
-Simple browser extension to extract Spotify details from an album page in a specific JSON object. You can find it in any context menu/extension bar near you!
+Extract album details from **Spotify** or **Qobuz** into a specific JSON object. You can find it in any context menu, extension bar, bookmark, or CLI near you!
 
-## How to trigger it
+## Supported sources
 
-The browser extensions (Chromium and Firefox) support four different ways to extract album info — pick whichever fits your flow:
+- **Spotify** — `open.spotify.com/album/...`
+- **Qobuz** — `www.qobuz.com/.../album/...` and `play.qobuz.com/album/...`
 
-1. **Spotify's own right-click menu** — right-click any album card, row, or tile inside the Spotify Web App. An **Extract Album Info** entry is injected into Spotify's native context menu.
-2. **Browser right-click on an album link** — right-click any `open.spotify.com/album/...` link *anywhere on the web* (a blog post, a tweet, a Slack message). An **Extract Album Info** entry appears in your browser's own context menu, courtesy of `contexts: ["link"]`.
-3. **Browser right-click on the album page** — right-click the page background while on an album. On Firefox you'll need **Shift+Right-Click** because Spotify swallows the normal right-click.
+## Interfaces
+
+Pick whichever one fits your flow — they all output the same JSON shape.
+
+### Browser extension (Chromium / Firefox)
+
+Four ways to trigger extraction:
+
+1. **The site's own right-click menu** — right-click any album card or row inside the Spotify Web App or Qobuz web player. An **Extract Album Info** entry is injected into the site's native context menu.
+2. **Browser right-click on an album link** — right-click any supported album link *anywhere on the web* (a blog post, a tweet, a Slack message). An **Extract Album Info** entry appears in your browser's own context menu.
+3. **Browser right-click on the album page** — right-click the page background while on an album. On Firefox you may need **Shift+Right-Click** on Spotify because it swallows the normal right-click.
 4. **Toolbar button** — click the extension icon in your browser's toolbar. It's only enabled on album pages; on other sites the icon is greyed out.
 
-The Spicetify version exposes a single entry in Spotify desktop's native context menu, also labelled **Extract Album Info**.
+### Bookmarklet
+
+A single `javascript:` URL you save as a bookmark. Click it while on any supported album page and the JSON lands in your clipboard. Install from the `install.html` attached to each [GitHub release](https://github.com/afonsojramos/album-details-extractor/releases/latest) — drag the "Extract Album Info" button to your bookmarks bar.
+
+### CLI
+
+A standalone single-file binary. Download the right build for your platform from [GitHub releases](https://github.com/afonsojramos/album-details-extractor/releases/latest), then:
+
+```sh
+album-details-extractor https://open.spotify.com/album/79dL7FLiJFOO0EoehUHQBv
+album-details-extractor https://www.qobuz.com/us-en/album/currents-tame-impala/0060254736219
+```
+
+Prints the JSON to stdout.
+
+### Spicetify
+
+The Spicetify variant exposes a single entry in Spotify desktop's native context menu, labelled **Extract Album Info**. Spotify only — Qobuz has no Spicetify equivalent.
 
 ## Installation
 
@@ -86,6 +112,8 @@ Each entry is constructed by the following JSON schema:
 }
 ```
 
+The same shape works for both Spotify and Qobuz — the website consumes it the same way regardless of where the album came from.
+
 The resulting page can be seen in [afonsojramos.me/music](afonsojramos.me/music).
 
 <p align="center"><img src="https://user-images.githubusercontent.com/19473034/142782818-40620f75-f867-44b6-84ac-5cafcabbfcc9.png"><p>
@@ -102,7 +130,7 @@ With this in mind, `v2` shifted to a simple context menu on Firefox and the exte
 
 ## More
 🌟 Like it? Gimme some love!    
-[![Github Stars badge](https://img.shields.io/github/stars/afonsojramos/spotify-details-extractor?logo=github&style=social)](https://github.com/afonsojramos/spotify-details-extractor/)
+[![Github Stars badge](https://img.shields.io/github/stars/afonsojramos/album-details-extractor?logo=github&style=social)](https://github.com/afonsojramos/album-details-extractor/)
 
-If you find any bugs, please [create a new issue](https://github.com/afonsojramos/spotify-details-extractor/issues/new/choose) on the GitHub repo. Podcast and show pages are filtered out automatically.    
-![https://github.com/afonsojramos/spotify-details-extractor/issues](https://img.shields.io/github/issues/afonsojramos/spotify-details-extractor?logo=github)
+If you find any bugs, please [create a new issue](https://github.com/afonsojramos/album-details-extractor/issues/new/choose) on the GitHub repo. Podcast, show, and playlist pages are filtered out automatically.    
+![https://github.com/afonsojramos/album-details-extractor/issues](https://img.shields.io/github/issues/afonsojramos/album-details-extractor?logo=github)

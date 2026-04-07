@@ -23,7 +23,7 @@ jobs:
       - name: Typecheck
         run: bun run typecheck
 
-      - name: Build all targets
+      - name: Build browser/spicetify/bookmarklet
         run: bun run build
 
       - name: Package Chromium zip
@@ -35,18 +35,37 @@ jobs:
           WEB_EXT_API_KEY: ${{ secrets.JWT_ISSUER }}
           WEB_EXT_API_SECRET: ${{ secrets.JWT_SECRET }}
 
+      - name: Build cross-platform CLI binaries
+        run: |
+          bun build src/cli/index.ts --compile --target=bun-linux-x64    --outfile dist/cli/album-details-extractor-linux-x64
+          bun build src/cli/index.ts --compile --target=bun-darwin-arm64 --outfile dist/cli/album-details-extractor-darwin-arm64
+          bun build src/cli/index.ts --compile --target=bun-darwin-x64   --outfile dist/cli/album-details-extractor-darwin-x64
+          bun build src/cli/index.ts --compile --target=bun-windows-x64  --outfile dist/cli/album-details-extractor-windows-x64.exe
+
       - name: Collect and rename artifacts
         run: |
-          mv dist/spotify-details-extractor-chromium.zip spotify-details-extractor-chromium.zip
-          cp dist/spicetify/extractor.js spotify-details-extractor-spicetify.js
-          mv dist/spotify_details_extractor-*.xpi spotify-details-extractor-firefox.xpi
+          mv dist/album-details-extractor-chromium.zip album-details-extractor-chromium.zip
+          cp dist/spicetify/extractor.js album-details-extractor-spicetify.js
+          mv dist/album_details_extractor-*.xpi album-details-extractor-firefox.xpi || mv dist/spotify_details_extractor-*.xpi album-details-extractor-firefox.xpi
+          cp dist/bookmarklet/album-details-extractor.url.txt album-details-extractor-bookmarklet.url.txt
+          cp dist/bookmarklet/install.html album-details-extractor-bookmarklet.html
+          cp dist/cli/album-details-extractor-linux-x64    album-details-extractor-linux-x64
+          cp dist/cli/album-details-extractor-darwin-arm64 album-details-extractor-darwin-arm64
+          cp dist/cli/album-details-extractor-darwin-x64   album-details-extractor-darwin-x64
+          cp dist/cli/album-details-extractor-windows-x64.exe album-details-extractor-windows-x64.exe
 
       - name: Upload release assets
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release upload ${{ github.ref_name }} \
-            spotify-details-extractor-chromium.zip \
-            spotify-details-extractor-firefox.xpi \
-            spotify-details-extractor-spicetify.js \
+            album-details-extractor-chromium.zip \
+            album-details-extractor-firefox.xpi \
+            album-details-extractor-spicetify.js \
+            album-details-extractor-bookmarklet.url.txt \
+            album-details-extractor-bookmarklet.html \
+            album-details-extractor-linux-x64 \
+            album-details-extractor-darwin-arm64 \
+            album-details-extractor-darwin-x64 \
+            album-details-extractor-windows-x64.exe \
             --clobber

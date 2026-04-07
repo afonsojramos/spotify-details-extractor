@@ -1,5 +1,5 @@
 {
-  "name": "spotify-details-extractor",
+  "name": "album-details-extractor",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,7 +7,7 @@
     "verify": "bun run scripts/verify.ts",
     "typecheck": "tsc --noEmit",
     "bump": "bun run scripts/bump-version.ts",
-    "chromium:zip": "cd dist && zip -r spotify-details-extractor-chromium.zip chromium",
+    "chromium:zip": "cd dist && zip -r album-details-extractor-chromium.zip chromium",
     "firefox:dev": "bun run build && web-ext run -s dist/firefox",
     "firefox:build": "bun run build && web-ext build -s dist/firefox -a dist --overwrite-dest",
     "firefox:release": "bun run build && web-ext sign -s dist/firefox --api-key=$JWT_ISSUER --api-secret=$JWT_SECRET",

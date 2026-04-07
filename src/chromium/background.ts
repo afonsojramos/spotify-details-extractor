@@ -99,7 +99,7 @@ function notify(message: string) {
   chrome.notifications?.create({
     type: "basic",
     iconUrl: "icons/icon128.png",
-    title: "Spotify Details Extractor",
+    title: "Album Details Extractor",
     message,
   });
 }

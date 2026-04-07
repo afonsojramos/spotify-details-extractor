@@ -1,4 +1,4 @@
-// NAME: Spotify Details Extractor
+// NAME: Album Details Extractor
 // AUTHOR: afonsojramos
 // DESCRIPTION: Extracts album information from Spotify and copies it to the clipboard.
 
