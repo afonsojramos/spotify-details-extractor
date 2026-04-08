@@ -153,6 +153,31 @@ const cases: Case[] = [
     },
   },
   {
+    label: "Tidal / El Mal Querer by ROSALÍA (accented character)",
+    url: "https://tidal.com/browse/album/95094922",
+    expected: {
+      title: "El Mal Querer",
+      artist: "ROSALÍA",
+      url: "https://tidal.com/album/95094922",
+      imagePattern: /^https:\/\/resources\.tidal\.com\/images\/.+\/640x640\.jpg$/,
+    },
+  },
+  {
+    label: "Tidal / non-existent album id (homepage fallback rejection)",
+    url: "https://tidal.com/browse/album/99999999999",
+    expected: null,
+  },
+  {
+    label: "Tidal / Ella And Louis (multi-artist with ampersand in og:title)",
+    url: "https://tidal.com/browse/album/93058764",
+    expected: {
+      title: "Ella And Louis",
+      artist: "Ella Fitzgerald & Louis Armstrong",
+      url: "https://tidal.com/album/93058764",
+      imagePattern: /^https:\/\/resources\.tidal\.com\/images\/.+\/640x640\.jpg$/,
+    },
+  },
+  {
     label: "Apple Music / Currents by Tame Impala",
     url: "https://music.apple.com/us/album/currents/1440838039",
     expected: {
@@ -160,6 +185,36 @@ const cases: Case[] = [
       artist: "Tame Impala",
       url: "https://music.apple.com/album/1440838039",
       imagePattern: /^https:\/\/is\d+-ssl\.mzstatic\.com\/image\/thumb\/.+\.jpg\/.+$/,
+    },
+  },
+  {
+    label: "Apple Music / Ants From Up There by Black Country, New Road (comma in artist)",
+    url: "https://music.apple.com/us/album/ants-from-up-there/1586070259",
+    expected: {
+      title: "Ants From Up There",
+      artist: "Black Country, New Road",
+      url: "https://music.apple.com/album/1586070259",
+      imagePattern: /^https:\/\/is\d+-ssl\.mzstatic\.com\/image\/thumb\/.+$/,
+    },
+  },
+  {
+    label: "Apple Music / EL MAL QUERER by ROSALÍA (accented character)",
+    url: "https://music.apple.com/us/album/el-mal-querer/1436309944",
+    expected: {
+      title: "EL MAL QUERER",
+      artist: "ROSALÍA",
+      url: "https://music.apple.com/album/1436309944",
+      imagePattern: /^https:\/\/is\d+-ssl\.mzstatic\.com\/image\/thumb\/.+$/,
+    },
+  },
+  {
+    label: "Apple Music / Ella and Louis (multi-artist credit preserved)",
+    url: "https://music.apple.com/us/album/ella-and-louis/1469584174",
+    expected: {
+      title: "Ella and Louis",
+      artist: "Ella Fitzgerald & Louis Armstrong",
+      url: "https://music.apple.com/album/1469584174",
+      imagePattern: /^https:\/\/is\d+-ssl\.mzstatic\.com\/image\/thumb\/.+$/,
     },
   },
   {
@@ -173,12 +228,56 @@ const cases: Case[] = [
     },
   },
   {
+    label: "Deezer / Ants From Up There by Black Country, New Road (comma in artist)",
+    url: "https://www.deezer.com/album/265280732",
+    expected: {
+      title: "Ants From Up There",
+      artist: "Black Country, New Road",
+      url: "https://www.deezer.com/album/265280732",
+      imagePattern: /^https:\/\/cdn-images\.dzcdn\.net\/images\/cover\/.+\/\d+x\d+\.jpg$/,
+    },
+  },
+  {
+    label: "Deezer / El Mal Querer by ROSALÍA (accented uppercase entity &Iacute;)",
+    url: "https://www.deezer.com/album/73227952",
+    expected: {
+      title: "El Mal Querer",
+      artist: "ROSALÍA",
+      url: "https://www.deezer.com/album/73227952",
+      imagePattern: /^https:\/\/cdn-images\.dzcdn\.net\/images\/cover\/.+\/\d+x\d+\.jpg$/,
+    },
+  },
+  {
+    // Deezer's og:description only credits the primary artist, so collab
+    // albums collapse to one name. This pins the documented limitation —
+    // if Deezer ever starts returning both, this test will fail loudly
+    // and we can remove the workaround note from the README.
+    label: "Deezer / Ella and Louis (documented limitation: primary artist only)",
+    url: "https://www.deezer.com/album/70493232",
+    expected: {
+      title: "Ella and Louis",
+      artist: "Ella Fitzgerald",
+      url: "https://www.deezer.com/album/70493232",
+      imagePattern: /^https:\/\/cdn-images\.dzcdn\.net\/images\/cover\/.+\/\d+x\d+\.jpg$/,
+    },
+  },
+  {
     label: "Bandcamp / Lift Your Skinny Fists by Godspeed You Black Emperor!",
     url: "https://godspeedyoublackemperor.bandcamp.com/album/lift-your-skinny-fists-like-antennas-to-heaven",
     expected: {
       title: "Lift Your Skinny Fists Like Antennas To Heaven",
       artist: "Godspeed You Black Emperor!",
       url: "https://godspeedyoublackemperor.bandcamp.com/album/lift-your-skinny-fists-like-antennas-to-heaven",
+      imagePattern: /^https:\/\/f\d+\.bcbits\.com\/img\/.+\.jpg$/,
+    },
+  },
+  {
+    label: "Bandcamp / Ants From Up There by Black Country, New Road (comma in artist)",
+    url: "https://blackcountrynewroad.bandcamp.com/album/ants-from-up-there",
+    expected: {
+      title: "Ants From Up There",
+      artist: "Black Country, New Road",
+      url: "https://blackcountrynewroad.bandcamp.com/album/ants-from-up-there",
       imagePattern: /^https:\/\/f\d+\.bcbits\.com\/img\/.+\.jpg$/,
     },
   },
