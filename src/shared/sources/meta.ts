@@ -46,9 +46,11 @@ function escapeRegex(s: string): string {
  * numeric-ref escape hatch catches anything else.
  */
 export function decodeEntities(s: string): string {
+  // Order matters: numeric refs and multi-character replacements first,
+  // named entities second, and `&amp;` last so we don't double-decode.
   return s
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n, 10)))
-    .replace(/&#x([0-9a-fA-F]+);/g, (_, n) => String.fromCharCode(parseInt(n, 16)))
+    .replace(/&#x([0-9a-fA-F]+);/gi, (_, n) => String.fromCharCode(parseInt(n, 16)))
     .replace(/&nbsp;/g, " ")
     .replace(/&hellip;/g, "…")
     .replace(/&mdash;/g, "—")
@@ -57,20 +59,45 @@ export function decodeEntities(s: string): string {
     .replace(/&rsquo;/g, "\u2019")
     .replace(/&ldquo;/g, "\u201C")
     .replace(/&rdquo;/g, "\u201D")
-    .replace(/&eacute;/g, "é")
-    .replace(/&egrave;/g, "è")
-    .replace(/&ecirc;/g, "ê")
-    .replace(/&agrave;/g, "à")
-    .replace(/&acirc;/g, "â")
-    .replace(/&iacute;/g, "í")
-    .replace(/&oacute;/g, "ó")
-    .replace(/&ocirc;/g, "ô")
-    .replace(/&uacute;/g, "ú")
-    .replace(/&ntilde;/g, "ñ")
-    .replace(/&ccedil;/g, "ç")
+    .replace(NAMED_ACCENTED, (m) => ACCENTED[m] ?? m)
     .replace(/&quot;/g, '"')
-    .replace(/&apos;|&#39;|&#x27;/g, "'")
+    .replace(/&apos;|&#39;|&#x27;/gi, "'")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&amp;/g, "&");
 }
+
+// Lowercase + uppercase variants of the accented Latin characters we see
+// in real artist/album names. Kept as a table so decodeEntities is O(1)
+// per entity instead of O(n) chained replaces.
+const ACCENTED: Record<string, string> = {
+  "&aacute;": "á", "&Aacute;": "Á",
+  "&eacute;": "é", "&Eacute;": "É",
+  "&iacute;": "í", "&Iacute;": "Í",
+  "&oacute;": "ó", "&Oacute;": "Ó",
+  "&uacute;": "ú", "&Uacute;": "Ú",
+  "&agrave;": "à", "&Agrave;": "À",
+  "&egrave;": "è", "&Egrave;": "È",
+  "&igrave;": "ì", "&Igrave;": "Ì",
+  "&ograve;": "ò", "&Ograve;": "Ò",
+  "&ugrave;": "ù", "&Ugrave;": "Ù",
+  "&acirc;": "â", "&Acirc;": "Â",
+  "&ecirc;": "ê", "&Ecirc;": "Ê",
+  "&icirc;": "î", "&Icirc;": "Î",
+  "&ocirc;": "ô", "&Ocirc;": "Ô",
+  "&ucirc;": "û", "&Ucirc;": "Û",
+  "&atilde;": "ã", "&Atilde;": "Ã",
+  "&ntilde;": "ñ", "&Ntilde;": "Ñ",
+  "&otilde;": "õ", "&Otilde;": "Õ",
+  "&auml;": "ä", "&Auml;": "Ä",
+  "&euml;": "ë", "&Euml;": "Ë",
+  "&iuml;": "ï", "&Iuml;": "Ï",
+  "&ouml;": "ö", "&Ouml;": "Ö",
+  "&uuml;": "ü", "&Uuml;": "Ü",
+  "&ccedil;": "ç", "&Ccedil;": "Ç",
+  "&aring;": "å", "&Aring;": "Å",
+  "&oslash;": "ø", "&Oslash;": "Ø",
+  "&szlig;": "ß",
+};
+
+const NAMED_ACCENTED = new RegExp(Object.keys(ACCENTED).join("|"), "g");
