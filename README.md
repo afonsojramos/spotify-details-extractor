@@ -75,7 +75,7 @@ The Spicetify variant exposes an **Extract Album Info** entry in Spotify desktop
   </tr>
   <tr>
     <td align="center">
-      <a href="https://addons.mozilla.org/en-GB/firefox/addon/spotify-details-extractor/"><img width="300" src="https://github.com/afonsojramos/album-details-extractor/assets/19473034/79153f53-0f0f-48e0-aea5-e4cd6d41d8e7"></a>
+      <a href="https://addons.mozilla.org/en-GB/firefox/addon/album-details-extractor/"><img width="300" src="https://github.com/afonsojramos/album-details-extractor/assets/19473034/79153f53-0f0f-48e0-aea5-e4cd6d41d8e7"></a>
     </td>
     <td>Browser context menu and toolbar button on Firefox. MV3 (requires Firefox 121+).</td>
   </tr>
