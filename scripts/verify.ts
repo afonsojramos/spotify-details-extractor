@@ -100,11 +100,13 @@ const cases: Case[] = [
     },
   },
   {
-    label: "Spotify / Watch The Throne (Deluxe) by JAŸ-Z (Ÿ Unicode U+0178)",
+    label: "Spotify / Watch The Throne (Deluxe) by JAŸ-Z + Kanye West (multi-artist via trackList aggregation, Ÿ Unicode)",
     url: "https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5",
     expected: {
       title: "Watch The Throne (Deluxe)",
-      artist: "JAŸ-Z",
+      // entity.subtitle is just "JAŸ-Z"; collectAlbumArtists walks the
+      // trackList (both artists on 100% of tracks) to recover Kanye West.
+      artist: "JAŸ-Z, Kanye West",
       url: "https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5",
       imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2735c837cc621c1ec82bf3c81ac$/,
     },
@@ -120,11 +122,13 @@ const cases: Case[] = [
     },
   },
   {
-    label: "Spotify / Ella and Louis by Ella Fitzgerald & Louis Armstrong (multi-artist with ampersand)",
+    label: "Spotify / Ella and Louis (multi-artist, both on every track)",
     url: "https://open.spotify.com/album/176VGwd7ODjJVxT0DkQA7A",
     expected: {
       title: "Ella and Louis",
-      artist: "Ella Fitzgerald & Louis Armstrong",
+      // entity.subtitle uses "&" as the joiner; our aggregator normalises to
+      // comma-joined output by scanning the trackList.
+      artist: "Ella Fitzgerald, Louis Armstrong",
       url: "https://open.spotify.com/album/176VGwd7ODjJVxT0DkQA7A",
       imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b273ec269c4766bd515d0faf4a56$/,
     },
@@ -134,7 +138,7 @@ const cases: Case[] = [
     url: "https://open.spotify.com/intl-pt/album/2P2Xwvh2xWXIZ1OWY9S9o5",
     expected: {
       title: "Watch The Throne (Deluxe)",
-      artist: "JAŸ-Z",
+      artist: "JAŸ-Z, Kanye West",
       url: "https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5",
       imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2735c837cc621c1ec82bf3c81ac$/,
     },

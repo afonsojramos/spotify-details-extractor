@@ -63,7 +63,7 @@ export function parseEmbedHtml(html: string, id: string): ExtractResult {
   }
 
   const title = entity.name?.trim();
-  const artist = entity.subtitle?.trim();
+  const artist = collectAlbumArtists(entity);
   const images = entity.visualIdentity?.image ?? [];
   // Prefer the largest available image (typically 640×640).
   const image = images.reduce<string>((best, img) => {
@@ -84,6 +84,52 @@ export function parseEmbedHtml(html: string, id: string): ExtractResult {
     url: `https://open.spotify.com/album/${id}`,
   };
   return { ok: true, album };
+}
+
+/**
+ * Resolves the album-level artist list by aggregating across every track's
+ * subtitle, not just `entity.subtitle` (which is Spotify's single-string
+ * "primary" credit and often drops collaborators).
+ *
+ * Why this works: Spotify separates artists inside a track subtitle with
+ * `,\u00a0` (comma + non-breaking space U+00A0). This is distinguishable
+ * from a regular `, ` inside a single artist name like "Tyler, The Creator",
+ * so splitting on the NBSP-joined comma yields individual artists cleanly.
+ *
+ * An artist is considered album-level if they appear on at least 80% of
+ * tracks. 80% is lenient enough that a one-track-skip interlude doesn't
+ * demote a core artist, and strict enough that track-level guest features
+ * never sneak in.
+ *
+ * Falls back to `entity.subtitle` when the trackList is empty (single
+ * tracks, pre-release albums, region-locked catalog entries).
+ */
+export function collectAlbumArtists(entity: EmbedEntity): string {
+  const tracks = entity.trackList ?? [];
+  if (tracks.length === 0) {
+    return entity.subtitle?.trim() ?? "";
+  }
+
+  const counts = new Map<string, number>();
+  const order: string[] = [];
+  for (const track of tracks) {
+    const subtitle = track.subtitle?.trim() ?? "";
+    if (!subtitle) continue;
+    for (const artist of subtitle.split("\u002c\u00a0")) {
+      const name = artist.trim();
+      if (!name) continue;
+      if (!counts.has(name)) order.push(name);
+      counts.set(name, (counts.get(name) ?? 0) + 1);
+    }
+  }
+
+  const threshold = Math.ceil(tracks.length * 0.8);
+  const albumArtists = order.filter((name) => (counts.get(name) ?? 0) >= threshold);
+
+  if (albumArtists.length === 0) {
+    return entity.subtitle?.trim() ?? "";
+  }
+  return albumArtists.join(", ");
 }
 
 /**
@@ -113,4 +159,9 @@ interface EmbedEntity {
   name?: string;
   subtitle?: string;
   visualIdentity?: { image?: Array<{ url?: string; maxWidth?: number }> };
+  trackList?: EmbedTrack[];
+}
+
+interface EmbedTrack {
+  subtitle?: string;
 }
