@@ -38,7 +38,7 @@ export const qobuz: Source = {
       });
       if (!res.ok) return { ok: false, reason: "missing-metadata", detail: `HTTP ${res.status}` };
       const html = await res.text();
-      return parseQobuzHtml(html);
+      return parseQobuzHtml(html, id);
     } catch (err) {
       return { ok: false, reason: "missing-metadata", detail: (err as Error).message };
     }
@@ -92,10 +92,16 @@ export function extractQobuzAlbumId(raw: string): string | null {
  *   2. `og:title` with `lastIndexOf(",")` as the split point — fallback for
  *      cases where the description doesn't match the template.
  *
+ * The output `url` is the listener-facing `play.qobuz.com/album/{id}` form,
+ * mirroring Spotify's `open.spotify.com/album/{id}`. We still fetch the
+ * catalog page (`www.qobuz.com/.../album/{slug}/{id}`) for metadata, but
+ * that's an implementation detail; end users write `play.qobuz.com` URLs
+ * into their JSON databases.
+ *
  * Regex is intentional: this parser runs in both browser (content script)
  * and Bun (CLI) contexts, and Bun doesn't ship a DOMParser.
  */
-export function parseQobuzHtml(html: string): ExtractResult {
+export function parseQobuzHtml(html: string, id: string): ExtractResult {
   const types = allMetas(html, "og:type");
   if (!types.includes("music.album")) {
     return { ok: false, reason: "not-album", detail: types.join(",") || "none" };
@@ -103,10 +109,9 @@ export function parseQobuzHtml(html: string): ExtractResult {
 
   const ogTitle = firstMeta(html, "og:title");
   const ogImage = firstMeta(html, "og:image");
-  const ogUrl = firstMeta(html, "og:url");
   const ogDescription = firstMeta(html, "og:description");
 
-  if (!ogTitle || !ogImage || !ogUrl) {
+  if (!ogTitle || !ogImage) {
     return { ok: false, reason: "missing-metadata" };
   }
 
@@ -119,7 +124,7 @@ export function parseQobuzHtml(html: string): ExtractResult {
     title: parsed.title,
     artist: parsed.artist,
     image: ogImage,
-    url: ogUrl,
+    url: `https://play.qobuz.com/album/${id}`,
   };
   return { ok: true, album };
 }

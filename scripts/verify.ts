@@ -54,22 +54,22 @@ const cases: Case[] = [
     expected: null,
   },
   {
-    label: "Qobuz / Currents by Tame Impala (canonical URL, UPC id)",
+    label: "Qobuz / Currents — www.qobuz.com catalog URL input, play.qobuz.com output (UPC id normalisation)",
     url: "https://www.qobuz.com/us-en/album/currents-tame-impala/0060254736219",
     expected: {
       title: "Currents",
       artist: "Tame Impala",
-      url: "https://www.qobuz.com/us-en/album/currents-tame-impala/0060254736219",
+      url: "https://play.qobuz.com/album/0060254736219",
       imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/19\/62\/0060254736219_600\.jpg$/,
     },
   },
   {
-    label: "Qobuz / MM..FOOD by MF DOOM (play.qobuz.com bridge, alphanumeric id)",
+    label: "Qobuz / MM..FOOD by MF DOOM (play.qobuz.com, alphanumeric id)",
     url: "https://play.qobuz.com/album/xdog3b38odmxa",
     expected: {
       title: "MM..FOOD (20th Anniversary Edition)",
       artist: "MF DOOM",
-      url: "https://www.qobuz.com/us-en/album/mmfood-mf-doom/xdog3b38odmxa",
+      url: "https://play.qobuz.com/album/xdog3b38odmxa",
       imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/xa\/dm\/xdog3b38odmxa_600\.jpg$/,
     },
   },
@@ -85,7 +85,7 @@ const cases: Case[] = [
     expected: {
       title: "Ants From Up There",
       artist: "Black Country, New Road",
-      url: "https://www.qobuz.com/us-en/album/ants-from-up-there-black-country-new-road/lh3e4dd8zia0b",
+      url: "https://play.qobuz.com/album/lh3e4dd8zia0b",
       imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/0b\/ia\/lh3e4dd8zia0b_600\.jpg$/,
     },
   },
@@ -95,7 +95,7 @@ const cases: Case[] = [
     expected: {
       title: "El Mal Querer",
       artist: "ROSALÍA",
-      url: "https://www.qobuz.com/us-en/album/el-mal-querer-rosalia/wrwhmzvgkncta",
+      url: "https://play.qobuz.com/album/wrwhmzvgkncta",
       imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/ta\/nc\/wrwhmzvgkncta_600\.jpg$/,
     },
   },

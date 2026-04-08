@@ -164,23 +164,34 @@ describe("parseTitleAndArtist", () => {
 // --- parseQobuzHtml (end-to-end with synthetic HTML) ------------------------
 
 describe("parseQobuzHtml", () => {
-  test("happy path with og:description", () => {
+  test("happy path with og:description — url is the play.qobuz.com listener form", () => {
     const html = buildHtml({
       ogType: ["article", "music.album"],
       ogTitle: "Currents, Tame Impala - Qobuz",
       ogDescription: "Listen to unlimited streaming or download Currents by Tame Impala in Hi-Res quality on Qobuz.",
       ogImage: "https://static.qobuz.com/images/covers/19/62/0060254736219_600.jpg",
-      ogUrl: "https://www.qobuz.com/us-en/album/currents-tame-impala/0060254736219",
     });
-    expect(parseQobuzHtml(html)).toEqual({
+    expect(parseQobuzHtml(html, "0060254736219")).toEqual({
       ok: true,
       album: {
         title: "Currents",
         artist: "Tame Impala",
         image: "https://static.qobuz.com/images/covers/19/62/0060254736219_600.jpg",
-        url: "https://www.qobuz.com/us-en/album/currents-tame-impala/0060254736219",
+        url: "https://play.qobuz.com/album/0060254736219",
       },
     });
+  });
+
+  test("alphanumeric id produces play.qobuz.com url", () => {
+    const html = buildHtml({
+      ogType: ["music.album"],
+      ogTitle: "Birding, deary - Qobuz",
+      ogDescription: "Listen to unlimited streaming or download Birding by deary in Hi-Res quality on Qobuz.",
+      ogImage: "https://static.qobuz.com/images/covers/2s/vj/oa6soz3d1vj2s_600.jpg",
+    });
+    const result = parseQobuzHtml(html, "oa6soz3d1vj2s");
+    expect(result.ok).toBe(true);
+    if (result.ok) expect(result.album.url).toBe("https://play.qobuz.com/album/oa6soz3d1vj2s");
   });
 
   test("rejects when og:type lacks music.album", () => {
@@ -189,9 +200,8 @@ describe("parseQobuzHtml", () => {
       ogTitle: "Homepage - Qobuz",
       ogDescription: null,
       ogImage: "https://static.qobuz.com/img.jpg",
-      ogUrl: "https://www.qobuz.com/us-en/",
     });
-    const result = parseQobuzHtml(html);
+    const result = parseQobuzHtml(html, "homepage");
     expect(result.ok).toBe(false);
     if (!result.ok) expect(result.reason).toBe("not-album");
   });
@@ -202,9 +212,8 @@ describe("parseQobuzHtml", () => {
       ogTitle: "Currents, Tame Impala - Qobuz",
       ogDescription: null,
       ogImage: null,
-      ogUrl: "https://www.qobuz.com/us-en/album/currents-tame-impala/0060254736219",
     });
-    const result = parseQobuzHtml(html);
+    const result = parseQobuzHtml(html, "0060254736219");
     expect(result.ok).toBe(false);
     if (!result.ok) expect(result.reason).toBe("missing-metadata");
   });
@@ -215,9 +224,8 @@ describe("parseQobuzHtml", () => {
       ogTitle: "Caf&eacute;, Art&iacute;sta - Qobuz",
       ogDescription: null,
       ogImage: "https://static.qobuz.com/img.jpg",
-      ogUrl: "https://www.qobuz.com/us-en/album/cafe-artista/123",
     });
-    const result = parseQobuzHtml(html);
+    const result = parseQobuzHtml(html, "123");
     expect(result.ok).toBe(true);
     if (result.ok) {
       expect(result.album.title).toBe("Café");
@@ -230,16 +238,15 @@ describe("parseQobuzHtml", () => {
 <meta content="music.album" property="og:type">
 <meta content="Foo, Bar - Qobuz" property="og:title">
 <meta content="https://static.qobuz.com/img.jpg" property="og:image">
-<meta content="https://www.qobuz.com/us-en/album/foo-bar/123" property="og:url">
 </head></html>`;
-    const result = parseQobuzHtml(html);
+    const result = parseQobuzHtml(html, "foobar123");
     expect(result).toEqual({
       ok: true,
       album: {
         title: "Foo",
         artist: "Bar",
         image: "https://static.qobuz.com/img.jpg",
-        url: "https://www.qobuz.com/us-en/album/foo-bar/123",
+        url: "https://play.qobuz.com/album/foobar123",
       },
     });
   });
@@ -250,9 +257,8 @@ describe("parseQobuzHtml", () => {
       ogTitle: "X, Y - Qobuz",
       ogDescription: null,
       ogImage: "https://static.qobuz.com/img.jpg",
-      ogUrl: "https://www.qobuz.com/us-en/album/x-y/123",
     });
-    const result = parseQobuzHtml(html);
+    const result = parseQobuzHtml(html, "xyz123");
     expect(result.ok).toBe(true);
   });
 });
@@ -264,7 +270,6 @@ interface HtmlFixture {
   ogTitle: string;
   ogDescription: string | null;
   ogImage: string | null;
-  ogUrl: string;
 }
 
 function buildHtml(f: HtmlFixture): string {
@@ -273,7 +278,6 @@ function buildHtml(f: HtmlFixture): string {
     `<meta property="og:title" content="${f.ogTitle}">`,
     f.ogDescription != null ? `<meta property="og:description" content="${f.ogDescription}">` : "",
     f.ogImage != null ? `<meta property="og:image" content="${f.ogImage}">` : "",
-    `<meta property="og:url" content="${f.ogUrl}">`,
   ]
     .filter(Boolean)
     .join("\n");
