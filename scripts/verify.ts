@@ -29,13 +29,13 @@ interface Case {
 
 const cases: Case[] = [
   {
-    label: "Spotify / Emotion (Deluxe) by Carly Rae Jepsen",
-    url: "https://open.spotify.com/album/1DFixLWuPkv3KT3TnV35m3",
+    label: "Spotify / Nonagon Infinity by King Gizzard & The Lizard Wizard",
+    url: "https://open.spotify.com/album/4imRDpzmb4zwvxKhNzJhxr",
     expected: {
-      title: "Emotion (Deluxe)",
-      artist: "Carly Rae Jepsen",
-      url: "https://open.spotify.com/album/1DFixLWuPkv3KT3TnV35m3",
-      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2735618ee6467c0becf0dd23d68$/,
+      title: "Nonagon Infinity",
+      artist: "King Gizzard & The Lizard Wizard",
+      url: "https://open.spotify.com/album/4imRDpzmb4zwvxKhNzJhxr",
+      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b27392cd8ca03552bdf6dd5e8934$/,
     },
   },
   {
@@ -64,13 +64,13 @@ const cases: Case[] = [
     },
   },
   {
-    label: "Qobuz / Harrys House by Mo Dry (play.qobuz.com bridge, alphanumeric id)",
-    url: "https://play.qobuz.com/album/cayd4x3o39hma",
+    label: "Qobuz / MM..FOOD by MF DOOM (play.qobuz.com bridge, alphanumeric id)",
+    url: "https://play.qobuz.com/album/xdog3b38odmxa",
     expected: {
-      title: "Harrys House",
-      artist: "Mo Dry",
-      url: "https://www.qobuz.com/us-en/album/harrys-house-mo-dry/cayd4x3o39hma",
-      imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/ma\/9h\/cayd4x3o39hma_600\.jpg$/,
+      title: "MM..FOOD (20th Anniversary Edition)",
+      artist: "MF DOOM",
+      url: "https://www.qobuz.com/us-en/album/mmfood-mf-doom/xdog3b38odmxa",
+      imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/xa\/dm\/xdog3b38odmxa_600\.jpg$/,
     },
   },
   {
