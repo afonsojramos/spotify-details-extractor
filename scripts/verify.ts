@@ -78,7 +78,6 @@ const cases: Case[] = [
     url: "https://www.qobuz.com/us-en/",
     expected: null,
   },
-  // --- edge cases -----------------------------------------------------------
   {
     label: "Qobuz / Ants From Up There by Black Country, New Road (comma in artist name)",
     url: "https://play.qobuz.com/album/lh3e4dd8zia0b",
@@ -141,6 +140,46 @@ const cases: Case[] = [
       artist: "JAŸ-Z, Kanye West",
       url: "https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5",
       imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2735c837cc621c1ec82bf3c81ac$/,
+    },
+  },
+  {
+    label: "Tidal / Currents by Tame Impala",
+    url: "https://tidal.com/browse/album/47696788",
+    expected: {
+      title: "Currents",
+      artist: "Tame Impala",
+      url: "https://tidal.com/album/47696788",
+      imagePattern: /^https:\/\/resources\.tidal\.com\/images\/.+\/640x640\.jpg$/,
+    },
+  },
+  {
+    label: "Apple Music / Currents by Tame Impala",
+    url: "https://music.apple.com/us/album/currents/1440838039",
+    expected: {
+      title: "Currents",
+      artist: "Tame Impala",
+      url: "https://music.apple.com/album/1440838039",
+      imagePattern: /^https:\/\/is\d+-ssl\.mzstatic\.com\/image\/thumb\/.+\.jpg\/.+$/,
+    },
+  },
+  {
+    label: "Deezer / Currents by Tame Impala (locale-agnostic description parser)",
+    url: "https://www.deezer.com/album/10709540",
+    expected: {
+      title: "Currents",
+      artist: "Tame Impala",
+      url: "https://www.deezer.com/album/10709540",
+      imagePattern: /^https:\/\/cdn-images\.dzcdn\.net\/images\/cover\/.+\/\d+x\d+\.jpg$/,
+    },
+  },
+  {
+    label: "Bandcamp / Lift Your Skinny Fists by Godspeed You Black Emperor!",
+    url: "https://godspeedyoublackemperor.bandcamp.com/album/lift-your-skinny-fists-like-antennas-to-heaven",
+    expected: {
+      title: "Lift Your Skinny Fists Like Antennas To Heaven",
+      artist: "Godspeed You Black Emperor!",
+      url: "https://godspeedyoublackemperor.bandcamp.com/album/lift-your-skinny-fists-like-antennas-to-heaven",
+      imagePattern: /^https:\/\/f\d+\.bcbits\.com\/img\/.+\.jpg$/,
     },
   },
 ];
