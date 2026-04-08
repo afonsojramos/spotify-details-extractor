@@ -99,6 +99,16 @@ const cases: Case[] = [
     },
   },
   {
+    label: "Qobuz / Bandana by Freddie Gibbs & Madlib (multi-artist via og:description parser)",
+    url: "https://play.qobuz.com/album/pl7hqkdosskmc",
+    expected: {
+      title: "Bandana",
+      artist: "Freddie Gibbs & Madlib",
+      url: "https://play.qobuz.com/album/pl7hqkdosskmc",
+      imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/mc\/sk\/pl7hqkdosskmc_600\.jpg$/,
+    },
+  },
+  {
     label: "Spotify / Watch The Throne (Deluxe) by JAŸ-Z + Kanye West (multi-artist via trackList aggregation, Ÿ Unicode)",
     url: "https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5",
     expected: {
