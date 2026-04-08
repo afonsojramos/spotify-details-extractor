@@ -6,7 +6,8 @@ import { parseSpotifyUrl, parseEmbedHtml, spotify } from "./spotify";
 describe("spotify.match", () => {
   test.each([
     ["canonical album", "https://open.spotify.com/album/79dL7FLiJFOO0EoehUHQBv", true],
-    ["intl album", "https://open.spotify.com/intl-pt/album/79dL7FLiJFOO0EoehUHQBv", false], // not /album/ at position 1
+    ["intl-pt album", "https://open.spotify.com/intl-pt/album/79dL7FLiJFOO0EoehUHQBv", true],
+    ["intl-es album", "https://open.spotify.com/intl-es/album/79dL7FLiJFOO0EoehUHQBv", true],
     ["embed album", "https://open.spotify.com/embed/album/79dL7FLiJFOO0EoehUHQBv", true],
     ["album with query", "https://open.spotify.com/album/79dL7FLiJFOO0EoehUHQBv?highlight=x", true],
     ["show (podcast)", "https://open.spotify.com/show/5xrGlmos4BtbmZR7g4wAzK", false],
@@ -28,6 +29,10 @@ describe("parseSpotifyUrl", () => {
     ],
     [
       "https://open.spotify.com/embed/album/79dL7FLiJFOO0EoehUHQBv",
+      { type: "album", id: "79dL7FLiJFOO0EoehUHQBv" },
+    ],
+    [
+      "https://open.spotify.com/intl-pt/album/79dL7FLiJFOO0EoehUHQBv",
       { type: "album", id: "79dL7FLiJFOO0EoehUHQBv" },
     ],
     [

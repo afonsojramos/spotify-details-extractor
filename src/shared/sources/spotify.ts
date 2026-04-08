@@ -12,7 +12,10 @@ export const spotify: Source = {
   match(url) {
     return (
       /(^|\.)spotify\.com$/.test(url.hostname) &&
-      /^\/(?:embed\/)?album\//.test(url.pathname)
+      // Match /album/..., /embed/album/..., and /intl-XX/album/...
+      // Spotify serves geo-localised URLs like /intl-pt/album/{id} to users
+      // in some regions; they should route exactly like the canonical path.
+      /^\/(?:embed\/|intl-[a-z]+\/)?album\//.test(url.pathname)
     );
   },
 
@@ -83,12 +86,15 @@ export function parseEmbedHtml(html: string, id: string): ExtractResult {
   return { ok: true, album };
 }
 
-/** `https://open.spotify.com/album/ID?...` → { type: "album", id: "ID" } */
+/**
+ * `https://open.spotify.com/album/ID?...` → `{ type: "album", id: "ID" }`.
+ * Also handles the `/embed/album/ID` and `/intl-XX/album/ID` URL shapes.
+ */
 export function parseSpotifyUrl(url: string): { type: string; id: string } | null {
   try {
     const u = new URL(url);
     if (!/(^|\.)spotify\.com$/.test(u.hostname)) return null;
-    const match = /^\/(?:embed\/)?([^/]+)\/([^/?#]+)/.exec(u.pathname);
+    const match = /^\/(?:embed\/|intl-[a-z]+\/)?([^/]+)\/([^/?#]+)/.exec(u.pathname);
     if (!match) return null;
     return { type: match[1] ?? "", id: match[2] ?? "" };
   } catch {
