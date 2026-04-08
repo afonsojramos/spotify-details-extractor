@@ -7,3 +7,7 @@ dist/*
 !dist/spicetify
 dist/spicetify/*
 !dist/spicetify/extractor.js
+playwright-report
+test-results
+.playwright
+blob-report

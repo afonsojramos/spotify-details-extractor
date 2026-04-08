@@ -8,7 +8,8 @@
   "scripts": {
     "build": "bun run scripts/build.ts",
     "icons": "bun run scripts/icons.ts",
-    "test": "bun test",
+    "test": "bun test src",
+    "test:e2e": "playwright test",
     "verify": "bun run scripts/verify.ts",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint",
@@ -26,6 +27,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@types/bun": "^1.3.11",
     "@types/chrome": "^0.1.39",
     "husky": "^9.1.7",

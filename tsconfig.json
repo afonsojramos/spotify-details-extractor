@@ -12,5 +12,5 @@
     "isolatedModules": true,
     "types": ["chrome", "bun"]
   },
-  "include": ["src/**/*.ts", "scripts/**/*.ts"]
+  "include": ["src/**/*.ts", "scripts/**/*.ts", "tests/**/*.ts", "playwright.config.ts"]
 }

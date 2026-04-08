@@ -70,6 +70,11 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
 
 // --- Core flow -------------------------------------------------------------
 
+/**
+ * Core extraction flow. Returns the result object so the Playwright E2E
+ * hook can assert on it directly — otherwise only observable via the
+ * notification toast, which is hard to test.
+ */
 async function handleExtract(tabId: number, url: string) {
   // No pre-processing: each source owns its own URL parsing and query/fragment
   // handling. Spotify tolerates `?highlight=` via its embed endpoint; Qobuz
@@ -80,7 +85,7 @@ async function handleExtract(tabId: number, url: string) {
     notify(
       result.reason === "not-album" ? "This isn't an album page." : "Couldn't read album metadata.",
     );
-    return;
+    return result;
   }
 
   try {
@@ -90,8 +95,15 @@ async function handleExtract(tabId: number, url: string) {
       args: [JSON.stringify(result.album)],
     });
     notify(`Copied "${result.album.title}" to clipboard.`);
+    return result;
   } catch (err) {
-    notify(`Clipboard write failed: ${(err as Error).message}`);
+    const message = (err as Error).message;
+    notify(`Clipboard write failed: ${message}`);
+    return {
+      ok: false as const,
+      reason: "missing-metadata" as const,
+      detail: `clipboard: ${message}`,
+    };
   }
 }
 
@@ -103,3 +115,9 @@ function notify(message: string) {
     message,
   });
 }
+
+// Exposed on the service worker's `globalThis` purely for Playwright E2E
+// tests — there's no public way to click a toolbar icon from Playwright, so
+// the test harness calls this directly. Harmless in production: the SW is
+// an isolated context and nothing outside the extension can reach it.
+(globalThis as unknown as { __adeExtract: typeof handleExtract }).__adeExtract = handleExtract;
