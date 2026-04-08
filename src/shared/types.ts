@@ -14,7 +14,7 @@ export type ExtractResult =
  * URL matching, extraction, and the MV3 manifest patterns it needs.
  */
 export interface Source {
-  readonly id: "spotify" | "qobuz";
+  readonly id: "spotify" | "qobuz" | "tidal" | "apple-music" | "deezer" | "bandcamp";
   readonly name: string;
   /** Does this URL belong to this source? */
   match(url: URL): boolean;
