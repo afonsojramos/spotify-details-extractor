@@ -16,7 +16,13 @@ export const appleMusic: Source = {
   name: "Apple Music",
 
   match(url) {
-    return url.hostname === "music.apple.com" && /\/album\/.+\/\d+|\/album\/\d+/.test(url.pathname);
+    if (url.hostname !== "music.apple.com") return false;
+    // Accepted path shapes (anchored to avoid matching `/album/` buried deep
+    // in a non-album path like `/us/playlist/.../album/.../123`):
+    //   /album/{id}
+    //   /{locale}/album/{id}
+    //   /{locale}/album/{slug}/{id}
+    return /^\/(?:[a-z]{2}\/)?album\/(?:[^/]+\/)?\d+\/?$/.test(url.pathname);
   },
 
   async extract(url) {
@@ -42,7 +48,11 @@ export const appleMusic: Source = {
   contentScriptMatches: [],
 };
 
-/** Extract the numeric id from any Apple Music album URL. Always the last path segment. */
+/**
+ * Extract the numeric id from any Apple Music album URL. Requires an
+ * `/album/` path segment before the id so artist URLs like
+ * `/us/artist/tame-impala/428463` don't get accepted.
+ */
 export function extractAppleMusicAlbumId(raw: string): string | null {
   let url: URL;
   try {
@@ -50,11 +60,8 @@ export function extractAppleMusicAlbumId(raw: string): string | null {
   } catch {
     return null;
   }
-  // Handle `/album/{id}` or `/{locale}/album/{slug}/{id}`.
-  const segments = url.pathname.split("/").filter(Boolean);
-  const last = segments[segments.length - 1] ?? "";
-  if (/^\d+$/.test(last)) return last;
-  return null;
+  const match = /\/album\/(?:[^/]+\/)?(\d+)(?:[/?#]|$)/.exec(url.pathname);
+  return match?.[1] ?? null;
 }
 
 /**
@@ -95,7 +102,9 @@ export function parseAppleMusicHtml(html: string, id: string): ExtractResult {
  */
 export function parseArtistFromAppleDescription(description: string | null): string | null {
   if (!description) return null;
-  const match = /Listen to .+ by (.+) on Apple Music/.exec(description);
+  // Anchored at the start so free-text descriptions that happen to contain
+  // "Listen to X by Y on Apple Music" can't bleed in.
+  const match = /^Listen to .+ by (.+) on Apple Music/.exec(description);
   return match?.[1]?.trim() ?? null;
 }
 

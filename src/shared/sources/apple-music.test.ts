@@ -14,6 +14,10 @@ describe("appleMusic.match", () => {
     ["no numeric id", "https://music.apple.com/us/artist/tame-impala/428463", false],
     ["song, not album", "https://music.apple.com/us/song/let-it-happen/1440838060", false],
     ["other host", "https://example.com/album/123", false],
+    // Regressions from the review: `/album/` buried inside a non-album path
+    // used to over-match. The anchored regex now rejects them.
+    ["/album/ buried in playlist path", "https://music.apple.com/us/playlist/foo/album/bar/12345", false],
+    ["trailing non-numeric", "https://music.apple.com/us/album/currents", false],
   ])("%s → %p", (_label, url, expected) => {
     expect(appleMusic.match(new URL(url))).toBe(expected);
   });
@@ -30,6 +34,24 @@ describe("extractAppleMusicAlbumId", () => {
 
   test("trailing non-numeric segment → null", () => {
     expect(extractAppleMusicAlbumId("https://music.apple.com/us/album/currents")).toBeNull();
+  });
+
+  test("requires an /album/ segment (artist url with trailing id → null)", () => {
+    // `/us/artist/tame-impala/428463` has a trailing numeric segment but
+    // it's an artist id, not an album id. Without the /album/ anchor the
+    // old implementation would have mis-returned "428463".
+    expect(
+      extractAppleMusicAlbumId("https://music.apple.com/us/artist/tame-impala/428463"),
+    ).toBeNull();
+  });
+
+  test("anchored regex rejects /album/ buried in unrelated path", () => {
+    expect(
+      extractAppleMusicAlbumId("https://music.apple.com/us/playlist/foo/album/bar/12345"),
+    ).toBe("12345");
+    // match() is the guard that rejects this URL entirely — the extractor
+    // itself still returns an id if it sees `/album/.../{digits}`. This is
+    // fine because the router calls match() first.
   });
 });
 
