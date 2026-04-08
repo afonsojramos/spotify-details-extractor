@@ -78,6 +78,47 @@ const cases: Case[] = [
     url: "https://www.qobuz.com/us-en/",
     expected: null,
   },
+  // --- edge cases -----------------------------------------------------------
+  {
+    label: "Qobuz / Ants From Up There by Black Country, New Road (comma in artist name)",
+    url: "https://play.qobuz.com/album/lh3e4dd8zia0b",
+    expected: {
+      title: "Ants From Up There",
+      artist: "Black Country, New Road",
+      url: "https://www.qobuz.com/us-en/album/ants-from-up-there-black-country-new-road/lh3e4dd8zia0b",
+      imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/0b\/ia\/lh3e4dd8zia0b_600\.jpg$/,
+    },
+  },
+  {
+    label: "Qobuz / El Mal Querer by ROSALÍA (accented character in artist)",
+    url: "https://play.qobuz.com/album/wrwhmzvgkncta",
+    expected: {
+      title: "El Mal Querer",
+      artist: "ROSALÍA",
+      url: "https://www.qobuz.com/us-en/album/el-mal-querer-rosalia/wrwhmzvgkncta",
+      imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/ta\/nc\/wrwhmzvgkncta_600\.jpg$/,
+    },
+  },
+  {
+    label: "Spotify / Watch The Throne (Deluxe) by JAŸ-Z (Ÿ Unicode U+0178)",
+    url: "https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5",
+    expected: {
+      title: "Watch The Throne (Deluxe)",
+      artist: "JAŸ-Z",
+      url: "https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5",
+      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2735c837cc621c1ec82bf3c81ac$/,
+    },
+  },
+  {
+    label: "Spotify / intl-pt URL (geo-localised prefix, canonical url in output)",
+    url: "https://open.spotify.com/intl-pt/album/2P2Xwvh2xWXIZ1OWY9S9o5",
+    expected: {
+      title: "Watch The Throne (Deluxe)",
+      artist: "JAŸ-Z",
+      url: "https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5",
+      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2735c837cc621c1ec82bf3c81ac$/,
+    },
+  },
 ];
 
 let failed = 0;
