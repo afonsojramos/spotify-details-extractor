@@ -21,9 +21,7 @@ document.addEventListener(
 );
 
 const observer = new MutationObserver(() => {
-  const menus = Array.from(
-    document.querySelectorAll('[role="menu"]') as NodeListOf<HTMLElement>,
-  );
+  const menus = Array.from(document.querySelectorAll('[role="menu"]') as NodeListOf<HTMLElement>);
   for (const menu of menus) {
     if (menu.dataset.adeInjected === "1") continue;
     tryInject(menu);
@@ -77,8 +75,7 @@ function tryInject(menu: HTMLElement) {
  */
 function resolveAlbumUrl(): string | null {
   const trigger =
-    (document.querySelector('[aria-expanded="true"]') as HTMLElement | null) ??
-    lastContextTarget;
+    (document.querySelector('[aria-expanded="true"]') as HTMLElement | null) ?? lastContextTarget;
 
   // 1. Tight ancestor anchor
   const ancestor = trigger?.closest('a[href^="/album/"]') as HTMLAnchorElement | null;
@@ -125,9 +122,7 @@ function dismissMenu() {
     return;
   }
 
-  document.body.dispatchEvent(
-    new PointerEvent("pointerdown", { bubbles: true, cancelable: true }),
-  );
+  document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, cancelable: true }));
   document.dispatchEvent(
     new KeyboardEvent("keydown", {
       key: "Escape",

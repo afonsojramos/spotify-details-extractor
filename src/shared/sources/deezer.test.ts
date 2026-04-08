@@ -35,7 +35,11 @@ describe("parseArtistFromDeezerDescription", () => {
     ["es", "Tame Impala - álbum - 2015 - 13 canciones", "Tame Impala"],
     ["fr", "Tame Impala - album - 2015 - 13 chansons", "Tame Impala"],
     ["pt", "Tame Impala - álbum - 2015 - 13 músicas", "Tame Impala"],
-    ["multi-word artist", "Black Country, New Road - album - 2022 - 9 songs", "Black Country, New Road"],
+    [
+      "multi-word artist",
+      "Black Country, New Road - album - 2022 - 9 songs",
+      "Black Country, New Road",
+    ],
   ])("%s locale: %s → %s", (_locale, description, expected) => {
     expect(parseArtistFromDeezerDescription(description)).toBe(expected);
   });

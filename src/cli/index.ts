@@ -9,9 +9,7 @@ if (!url || url === "-h" || url === "--help") {
 
 const result = await extractAlbumFromUrl(url);
 if (!result.ok) {
-  console.error(
-    `error: ${result.reason}${result.detail ? ` (${result.detail})` : ""}`,
-  );
+  console.error(`error: ${result.reason}${result.detail ? ` (${result.detail})` : ""}`);
   process.exit(1);
 }
 console.log(JSON.stringify(result.album, null, 2));

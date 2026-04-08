@@ -14,7 +14,14 @@
     "scripts": ["background.js"]
   },
   "action": {},
-  "permissions": ["scripting", "tabs", "contextMenus", "notifications", "clipboardWrite", "activeTab"],
+  "permissions": [
+    "scripting",
+    "tabs",
+    "contextMenus",
+    "notifications",
+    "clipboardWrite",
+    "activeTab"
+  ],
   "icons": {
     "32": "icons/icon32.png",
     "48": "icons/icon48.png",

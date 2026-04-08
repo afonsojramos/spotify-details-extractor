@@ -76,7 +76,8 @@ export function parseAppleMusicHtml(html: string, id: string): ExtractResult {
     return { ok: false, reason: "not-album", detail: ogType ?? "none" };
   }
 
-  const title = firstMeta(html, "apple:title") ?? parseTitleFromOgTitle(firstMeta(html, "og:title"));
+  const title =
+    firstMeta(html, "apple:title") ?? parseTitleFromOgTitle(firstMeta(html, "og:title"));
   const artist =
     parseArtistFromAppleDescription(firstMeta(html, "apple:description")) ??
     parseArtistFromOgTitle(firstMeta(html, "og:title"));

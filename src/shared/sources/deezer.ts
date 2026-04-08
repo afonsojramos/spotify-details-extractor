@@ -43,7 +43,11 @@ export const deezer: Source = {
   },
 
   hostPermissions: ["*://*.deezer.com/*"],
-  albumLinkPatterns: ["*://www.deezer.com/*/album/*", "*://www.deezer.com/album/*", "*://deezer.com/album/*"],
+  albumLinkPatterns: [
+    "*://www.deezer.com/*/album/*",
+    "*://www.deezer.com/album/*",
+    "*://deezer.com/album/*",
+  ],
   contentScriptMatches: [],
 };
 

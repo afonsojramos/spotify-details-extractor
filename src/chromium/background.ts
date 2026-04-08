@@ -78,9 +78,7 @@ async function handleExtract(tabId: number, url: string) {
 
   if (!result.ok) {
     notify(
-      result.reason === "not-album"
-        ? "This isn't an album page."
-        : "Couldn't read album metadata.",
+      result.reason === "not-album" ? "This isn't an album page." : "Couldn't read album metadata.",
     );
     return;
   }

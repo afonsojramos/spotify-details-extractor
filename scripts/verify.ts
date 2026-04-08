@@ -35,7 +35,8 @@ const cases: Case[] = [
       title: "Nonagon Infinity",
       artist: "King Gizzard & The Lizard Wizard",
       url: "https://open.spotify.com/album/4imRDpzmb4zwvxKhNzJhxr",
-      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b27392cd8ca03552bdf6dd5e8934$/,
+      imagePattern:
+        /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b27392cd8ca03552bdf6dd5e8934$/,
     },
   },
   {
@@ -45,7 +46,8 @@ const cases: Case[] = [
       title: "Currents",
       artist: "Tame Impala",
       url: "https://open.spotify.com/album/79dL7FLiJFOO0EoehUHQBv",
-      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2739e1cfc756886ac782e363d79$/,
+      imagePattern:
+        /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2739e1cfc756886ac782e363d79$/,
     },
   },
   {
@@ -54,13 +56,15 @@ const cases: Case[] = [
     expected: null,
   },
   {
-    label: "Qobuz / Currents — www.qobuz.com catalog URL input, play.qobuz.com output (UPC id normalisation)",
+    label:
+      "Qobuz / Currents — www.qobuz.com catalog URL input, play.qobuz.com output (UPC id normalisation)",
     url: "https://www.qobuz.com/us-en/album/currents-tame-impala/0060254736219",
     expected: {
       title: "Currents",
       artist: "Tame Impala",
       url: "https://play.qobuz.com/album/0060254736219",
-      imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/19\/62\/0060254736219_600\.jpg$/,
+      imagePattern:
+        /^https:\/\/static\.qobuz\.com\/images\/covers\/19\/62\/0060254736219_600\.jpg$/,
     },
   },
   {
@@ -70,7 +74,8 @@ const cases: Case[] = [
       title: "MM..FOOD (20th Anniversary Edition)",
       artist: "MF DOOM",
       url: "https://play.qobuz.com/album/xdog3b38odmxa",
-      imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/xa\/dm\/xdog3b38odmxa_600\.jpg$/,
+      imagePattern:
+        /^https:\/\/static\.qobuz\.com\/images\/covers\/xa\/dm\/xdog3b38odmxa_600\.jpg$/,
     },
   },
   {
@@ -85,7 +90,8 @@ const cases: Case[] = [
       title: "Ants From Up There",
       artist: "Black Country, New Road",
       url: "https://play.qobuz.com/album/lh3e4dd8zia0b",
-      imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/0b\/ia\/lh3e4dd8zia0b_600\.jpg$/,
+      imagePattern:
+        /^https:\/\/static\.qobuz\.com\/images\/covers\/0b\/ia\/lh3e4dd8zia0b_600\.jpg$/,
     },
   },
   {
@@ -95,7 +101,8 @@ const cases: Case[] = [
       title: "El Mal Querer",
       artist: "ROSALÍA",
       url: "https://play.qobuz.com/album/wrwhmzvgkncta",
-      imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/ta\/nc\/wrwhmzvgkncta_600\.jpg$/,
+      imagePattern:
+        /^https:\/\/static\.qobuz\.com\/images\/covers\/ta\/nc\/wrwhmzvgkncta_600\.jpg$/,
     },
   },
   {
@@ -105,11 +112,13 @@ const cases: Case[] = [
       title: "Bandana",
       artist: "Freddie Gibbs & Madlib",
       url: "https://play.qobuz.com/album/pl7hqkdosskmc",
-      imagePattern: /^https:\/\/static\.qobuz\.com\/images\/covers\/mc\/sk\/pl7hqkdosskmc_600\.jpg$/,
+      imagePattern:
+        /^https:\/\/static\.qobuz\.com\/images\/covers\/mc\/sk\/pl7hqkdosskmc_600\.jpg$/,
     },
   },
   {
-    label: "Spotify / Watch The Throne (Deluxe) by JAŸ-Z + Kanye West (multi-artist via trackList aggregation, Ÿ Unicode)",
+    label:
+      "Spotify / Watch The Throne (Deluxe) by JAŸ-Z + Kanye West (multi-artist via trackList aggregation, Ÿ Unicode)",
     url: "https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5",
     expected: {
       title: "Watch The Throne (Deluxe)",
@@ -117,7 +126,8 @@ const cases: Case[] = [
       // trackList (both artists on 100% of tracks) to recover Kanye West.
       artist: "JAŸ-Z, Kanye West",
       url: "https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5",
-      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2735c837cc621c1ec82bf3c81ac$/,
+      imagePattern:
+        /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2735c837cc621c1ec82bf3c81ac$/,
     },
   },
   {
@@ -127,11 +137,13 @@ const cases: Case[] = [
       title: "IGOR",
       artist: "Tyler, The Creator",
       url: "https://open.spotify.com/album/5zi7WsKlIiUXv09tbGLKsE",
-      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b27330a635de2bb0caa4e26f6abb$/,
+      imagePattern:
+        /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b27330a635de2bb0caa4e26f6abb$/,
     },
   },
   {
-    label: "Spotify / Bandana by Freddie Gibbs + Madlib (trackList aggregation recovers dropped collaborator)",
+    label:
+      "Spotify / Bandana by Freddie Gibbs + Madlib (trackList aggregation recovers dropped collaborator)",
     url: "https://open.spotify.com/album/31KbO7WnDp2AjPdmRTJzdf",
     expected: {
       title: "Bandana",
@@ -139,7 +151,8 @@ const cases: Case[] = [
       // the trackList and recovers Madlib, who appears on 16/17 tracks.
       artist: "Freddie Gibbs, Madlib",
       url: "https://open.spotify.com/album/31KbO7WnDp2AjPdmRTJzdf",
-      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2738d479573710dcbce5414d548$/,
+      imagePattern:
+        /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2738d479573710dcbce5414d548$/,
     },
   },
   {
@@ -149,7 +162,8 @@ const cases: Case[] = [
       title: "Watch The Throne (Deluxe)",
       artist: "JAŸ-Z, Kanye West",
       url: "https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5",
-      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2735c837cc621c1ec82bf3c81ac$/,
+      imagePattern:
+        /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2735c837cc621c1ec82bf3c81ac$/,
     },
   },
   {
@@ -328,7 +342,8 @@ function check(expected: ExpectedAlbum | null, actual: ExtractResult): string[] 
 
   if (expected === null) {
     if (actual.ok) errors.push("expected rejection, got album");
-    else if (actual.reason !== "not-album") errors.push(`expected reason="not-album", got "${actual.reason}"`);
+    else if (actual.reason !== "not-album")
+      errors.push(`expected reason="not-album", got "${actual.reason}"`);
     return errors;
   }
 
@@ -338,8 +353,10 @@ function check(expected: ExpectedAlbum | null, actual: ExtractResult): string[] 
   }
 
   const a = actual.album;
-  if (a.title !== expected.title) errors.push(`title: expected "${expected.title}", got "${a.title}"`);
-  if (a.artist !== expected.artist) errors.push(`artist: expected "${expected.artist}", got "${a.artist}"`);
+  if (a.title !== expected.title)
+    errors.push(`title: expected "${expected.title}", got "${a.title}"`);
+  if (a.artist !== expected.artist)
+    errors.push(`artist: expected "${expected.artist}", got "${a.artist}"`);
   if (a.url !== expected.url) errors.push(`url: expected "${expected.url}", got "${a.url}"`);
   if (!expected.imagePattern.test(a.image)) {
     errors.push(`image: expected match ${expected.imagePattern}, got "${a.image}"`);

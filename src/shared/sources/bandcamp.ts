@@ -19,7 +19,7 @@ export const bandcamp: Source = {
   name: "Bandcamp",
 
   match(url) {
-    return /\.bandcamp\.com$/.test(url.hostname) && /^\/album\//.test(url.pathname);
+    return url.hostname.endsWith(".bandcamp.com") && url.pathname.startsWith("/album/");
   },
 
   async extract(url) {
@@ -52,7 +52,7 @@ export function canonicaliseBandcampUrl(raw: string): string | null {
   } catch {
     return null;
   }
-  if (!/\.bandcamp\.com$/.test(url.hostname)) return null;
+  if (!url.hostname.endsWith(".bandcamp.com")) return null;
   const match = /^(\/album\/[^/?#]+)/.exec(url.pathname);
   if (!match) return null;
   return `https://${url.hostname}${match[1]}`;

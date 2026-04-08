@@ -12,7 +12,11 @@ import {
 
 describe("qobuz.match", () => {
   test.each([
-    ["www.qobuz.com canonical", "https://www.qobuz.com/us-en/album/currents-tame-impala/0060254736219", true],
+    [
+      "www.qobuz.com canonical",
+      "https://www.qobuz.com/us-en/album/currents-tame-impala/0060254736219",
+      true,
+    ],
     ["www.qobuz.com bridge", "https://www.qobuz.com/us-en/album/-/cayd4x3o39hma", true],
     ["play.qobuz.com", "https://play.qobuz.com/album/cayd4x3o39hma", true],
     ["open.qobuz.com", "https://open.qobuz.com/album/cayd4x3o39hma", true],
@@ -37,7 +41,10 @@ describe("extractQobuzAlbumId", () => {
     ["https://play.qobuz.com/album/cayd4x3o39hma", "cayd4x3o39hma"],
     ["https://open.qobuz.com/album/cayd4x3o39hma", "cayd4x3o39hma"],
     ["https://www.qobuz.com/us-en/album/currents-tame-impala/0060254736219?utm=x", "0060254736219"],
-    ["https://www.qobuz.com/us-en/album/currents-tame-impala/0060254736219#track-1", "0060254736219"],
+    [
+      "https://www.qobuz.com/us-en/album/currents-tame-impala/0060254736219#track-1",
+      "0060254736219",
+    ],
   ])("%s → %s", (url, expected) => {
     expect(extractQobuzAlbumId(url)).toBe(expected);
   });
@@ -120,9 +127,7 @@ describe("parseOgDescription", () => {
 
   test("returns null when the description is in a non-English locale", () => {
     expect(
-      parseOgDescription(
-        "Ouça ilimitado ou baixe Currents de Tame Impala em Hi-Res na Qobuz.",
-      ),
+      parseOgDescription("Ouça ilimitado ou baixe Currents de Tame Impala em Hi-Res na Qobuz."),
     ).toBeNull();
   });
 
@@ -146,9 +151,10 @@ describe("parseTitleAndArtist", () => {
   });
 
   test("falls back to og:title when og:description is null", () => {
-    expect(
-      parseTitleAndArtist("Currents, Tame Impala - Qobuz", null),
-    ).toEqual({ title: "Currents", artist: "Tame Impala" });
+    expect(parseTitleAndArtist("Currents, Tame Impala - Qobuz", null)).toEqual({
+      title: "Currents",
+      artist: "Tame Impala",
+    });
   });
 
   test("falls back to og:title when og:description doesn't match the template", () => {
@@ -168,7 +174,8 @@ describe("parseQobuzHtml", () => {
     const html = buildHtml({
       ogType: ["article", "music.album"],
       ogTitle: "Currents, Tame Impala - Qobuz",
-      ogDescription: "Listen to unlimited streaming or download Currents by Tame Impala in Hi-Res quality on Qobuz.",
+      ogDescription:
+        "Listen to unlimited streaming or download Currents by Tame Impala in Hi-Res quality on Qobuz.",
       ogImage: "https://static.qobuz.com/images/covers/19/62/0060254736219_600.jpg",
     });
     expect(parseQobuzHtml(html, "0060254736219")).toEqual({
@@ -186,7 +193,8 @@ describe("parseQobuzHtml", () => {
     const html = buildHtml({
       ogType: ["music.album"],
       ogTitle: "Birding, deary - Qobuz",
-      ogDescription: "Listen to unlimited streaming or download Birding by deary in Hi-Res quality on Qobuz.",
+      ogDescription:
+        "Listen to unlimited streaming or download Birding by deary in Hi-Res quality on Qobuz.",
       ogImage: "https://static.qobuz.com/images/covers/2s/vj/oa6soz3d1vj2s_600.jpg",
     });
     const result = parseQobuzHtml(html, "oa6soz3d1vj2s");

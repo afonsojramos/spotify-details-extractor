@@ -16,7 +16,11 @@ describe("appleMusic.match", () => {
     ["other host", "https://example.com/album/123", false],
     // Regressions from the review: `/album/` buried inside a non-album path
     // used to over-match. The anchored regex now rejects them.
-    ["/album/ buried in playlist path", "https://music.apple.com/us/playlist/foo/album/bar/12345", false],
+    [
+      "/album/ buried in playlist path",
+      "https://music.apple.com/us/playlist/foo/album/bar/12345",
+      false,
+    ],
     ["trailing non-numeric", "https://music.apple.com/us/album/currents", false],
   ])("%s → %p", (_label, url, expected) => {
     expect(appleMusic.match(new URL(url))).toBe(expected);

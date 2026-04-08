@@ -18,13 +18,10 @@ document.addEventListener(
   true,
 );
 
-const MENU_SELECTOR =
-  '[role="menu"], .contextual-menu, .context-menu, [class*="contextMenu"]';
+const MENU_SELECTOR = '[role="menu"], .contextual-menu, .context-menu, [class*="contextMenu"]';
 
 const observer = new MutationObserver(() => {
-  const menus = Array.from(
-    document.querySelectorAll(MENU_SELECTOR) as NodeListOf<HTMLElement>,
-  );
+  const menus = Array.from(document.querySelectorAll(MENU_SELECTOR) as NodeListOf<HTMLElement>);
   for (const menu of menus) {
     if (menu.dataset.adeInjected === "1") continue;
     tryInject(menu);
@@ -39,7 +36,7 @@ function tryInject(menu: HTMLElement) {
 
   const template =
     (menu.querySelector('[role="menuitem"]') as HTMLElement | null) ??
-    (menu.querySelector('li, button') as HTMLElement | null);
+    (menu.querySelector("li, button") as HTMLElement | null);
   if (!template) return;
 
   const item = template.cloneNode(true) as HTMLElement;
@@ -74,8 +71,7 @@ function tryInject(menu: HTMLElement) {
  */
 function resolveAlbumUrl(): string | null {
   const trigger =
-    (document.querySelector('[aria-expanded="true"]') as HTMLElement | null) ??
-    lastContextTarget;
+    (document.querySelector('[aria-expanded="true"]') as HTMLElement | null) ?? lastContextTarget;
 
   // 1. Tight ancestor anchor.
   const ancestor = trigger?.closest('a[href*="/album/"]') as HTMLAnchorElement | null;
@@ -117,9 +113,7 @@ function dismissMenu() {
     trigger.click();
     return;
   }
-  document.body.dispatchEvent(
-    new PointerEvent("pointerdown", { bubbles: true, cancelable: true }),
-  );
+  document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, cancelable: true }));
   document.dispatchEvent(
     new KeyboardEvent("keydown", {
       key: "Escape",

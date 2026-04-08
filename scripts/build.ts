@@ -28,13 +28,11 @@ const browserTargets = ["chromium", "firefox"] as const;
 async function writeBrowserManifest(srcPath: string, outPath: string) {
   const manifest = JSON.parse(await readFile(srcPath, "utf8"));
   manifest.host_permissions = SOURCES.flatMap((s) => [...s.hostPermissions]);
-  manifest.content_scripts = SOURCES
-    .filter((s) => s.contentScriptMatches.length > 0)
-    .map((s) => ({
-      matches: [...s.contentScriptMatches],
-      js: [`${s.id}-menu.js`],
-      run_at: "document_idle",
-    }));
+  manifest.content_scripts = SOURCES.filter((s) => s.contentScriptMatches.length > 0).map((s) => ({
+    matches: [...s.contentScriptMatches],
+    js: [`${s.id}-menu.js`],
+    run_at: "document_idle",
+  }));
   await writeFile(outPath, JSON.stringify(manifest, null, 2) + "\n");
 }
 

@@ -21,18 +21,9 @@ describe("bandcamp.match", () => {
 describe("canonicaliseBandcampUrl", () => {
   test.each([
     // Input, expected canonical
-    [
-      "https://foo.bandcamp.com/album/bar",
-      "https://foo.bandcamp.com/album/bar",
-    ],
-    [
-      "https://foo.bandcamp.com/album/bar?utm=x",
-      "https://foo.bandcamp.com/album/bar",
-    ],
-    [
-      "https://foo.bandcamp.com/album/bar#top",
-      "https://foo.bandcamp.com/album/bar",
-    ],
+    ["https://foo.bandcamp.com/album/bar", "https://foo.bandcamp.com/album/bar"],
+    ["https://foo.bandcamp.com/album/bar?utm=x", "https://foo.bandcamp.com/album/bar"],
+    ["https://foo.bandcamp.com/album/bar#top", "https://foo.bandcamp.com/album/bar"],
   ])("%s → %s", (input, expected) => {
     expect(canonicaliseBandcampUrl(input)).toBe(expected);
   });

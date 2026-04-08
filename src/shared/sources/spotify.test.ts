@@ -140,18 +140,15 @@ describe("collectAlbumArtists", () => {
       collectAlbumArtists({
         type: "album",
         subtitle: "C",
-        trackList: [
-          { subtitle: `C${SEP}A${SEP}B` },
-          { subtitle: `C${SEP}A${SEP}B` },
-        ],
+        trackList: [{ subtitle: `C${SEP}A${SEP}B` }, { subtitle: `C${SEP}A${SEP}B` }],
       }),
     ).toBe("C, A, B");
   });
 
   test("empty trackList falls back to entity.subtitle", () => {
-    expect(
-      collectAlbumArtists({ type: "album", subtitle: "Solo Artist", trackList: [] }),
-    ).toBe("Solo Artist");
+    expect(collectAlbumArtists({ type: "album", subtitle: "Solo Artist", trackList: [] })).toBe(
+      "Solo Artist",
+    );
   });
 
   test("missing trackList falls back to entity.subtitle", () => {
@@ -174,10 +171,7 @@ describe("collectAlbumArtists", () => {
       collectAlbumArtists({
         type: "album",
         subtitle: "Primary",
-        trackList: [
-          { subtitle: `Primary${SEP}Guest` },
-          { subtitle: "Primary" },
-        ],
+        trackList: [{ subtitle: `Primary${SEP}Guest` }, { subtitle: "Primary" }],
       }),
     ).toBe("Primary");
   });

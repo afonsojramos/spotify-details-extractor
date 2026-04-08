@@ -118,4 +118,3 @@ export function parseTidalOgTitle(ogTitle: string): { title: string; artist: str
   if (!artist || !title) return null;
   return { artist, title };
 }
-
