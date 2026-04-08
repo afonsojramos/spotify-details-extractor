@@ -115,13 +115,13 @@ The Spicetify variant exposes an **Extract Album Info** entry in Spotify desktop
 
 ## Motivation
 
-My personal website uses a [JSON database](https://github.com/afonsojramos/afonsojramos.me/blob/main/data/music.json) to track my favourite albums of the year. Each entry looks like this:
+My personal website uses a [TypeScript data file](https://github.com/afonsojramos/afonsojramos.me/blob/main/src/content/music.ts) to track my favourite albums of the year. Each entry looks like this:
 
 ```json
 {
   "title": "For the first time",
   "artist": "Black Country, New Road",
-  "image": "https://image-cdn-ak.spotifycdn.com/image/ab67616d0000b2730ffaa4f75b2297d36ff1e0ad",
+  "image": "https://i.scdn.co/image/ab67616d00001e020ffaa4f75b2297d36ff1e0ad",
   "url": "https://open.spotify.com/album/2PfgptDcfJTFtoZIS3AukX"
 }
 ```
