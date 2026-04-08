@@ -1,6 +1,9 @@
 {
   "name": "album-details-extractor",
   "private": true,
+  "bin": {
+    "album-details-extractor": "./src/cli/index.ts"
+  },
   "type": "module",
   "scripts": {
     "build": "bun run scripts/build.ts",
@@ -8,6 +11,10 @@
     "test": "bun test",
     "verify": "bun run scripts/verify.ts",
     "typecheck": "tsc --noEmit",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
     "bump": "bun run scripts/bump-version.ts",
     "chromium:zip": "cd dist && zip -r album-details-extractor-chromium.zip chromium",
     "firefox:dev": "bun run build && web-ext run -s dist/firefox",
@@ -15,14 +22,15 @@
     "firefox:release": "bun run build && web-ext sign -s dist/firefox --api-key=$JWT_ISSUER --api-secret=$JWT_SECRET",
     "spicetify:install": "bun run build && cp dist/spicetify/extractor.js ~/.config/spicetify/Extensions/",
     "spicetify:setup": "spicetify config extensions extractor.js",
-    "spicetify:dev": "spicetify enable-devtools & spicetify watch -le"
-  },
-  "bin": {
-    "album-details-extractor": "./src/cli/index.ts"
+    "spicetify:dev": "spicetify enable-devtools & spicetify watch -le",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@types/bun": "^1.1.0",
     "@types/chrome": "^0.0.270",
+    "husky": "^9.1.7",
+    "oxfmt": "^0.44.0",
+    "oxlint": "^1.59.0",
     "typescript": "^5.6.0",
     "web-ext": "^8.3.0"
   }
