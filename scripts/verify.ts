@@ -121,15 +121,15 @@ const cases: Case[] = [
     },
   },
   {
-    label: "Spotify / Ella and Louis (multi-artist, both on every track)",
-    url: "https://open.spotify.com/album/176VGwd7ODjJVxT0DkQA7A",
+    label: "Spotify / Bandana by Freddie Gibbs + Madlib (trackList aggregation recovers dropped collaborator)",
+    url: "https://open.spotify.com/album/31KbO7WnDp2AjPdmRTJzdf",
     expected: {
-      title: "Ella and Louis",
-      // entity.subtitle uses "&" as the joiner; our aggregator normalises to
-      // comma-joined output by scanning the trackList.
-      artist: "Ella Fitzgerald, Louis Armstrong",
-      url: "https://open.spotify.com/album/176VGwd7ODjJVxT0DkQA7A",
-      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b273ec269c4766bd515d0faf4a56$/,
+      title: "Bandana",
+      // entity.subtitle collapses to "Freddie Gibbs" — our aggregator walks
+      // the trackList and recovers Madlib, who appears on 16/17 tracks.
+      artist: "Freddie Gibbs, Madlib",
+      url: "https://open.spotify.com/album/31KbO7WnDp2AjPdmRTJzdf",
+      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b2738d479573710dcbce5414d548$/,
     },
   },
   {
@@ -168,12 +168,12 @@ const cases: Case[] = [
     expected: null,
   },
   {
-    label: "Tidal / Ella And Louis (multi-artist with ampersand in og:title)",
-    url: "https://tidal.com/browse/album/93058764",
+    label: "Tidal / Bandana by Freddie Gibbs & Madlib (multi-artist with ampersand in og:title)",
+    url: "https://tidal.com/browse/album/112258019",
     expected: {
-      title: "Ella And Louis",
-      artist: "Ella Fitzgerald & Louis Armstrong",
-      url: "https://tidal.com/album/93058764",
+      title: "Bandana",
+      artist: "Freddie Gibbs & Madlib",
+      url: "https://tidal.com/album/112258019",
       imagePattern: /^https:\/\/resources\.tidal\.com\/images\/.+\/640x640\.jpg$/,
     },
   },
@@ -208,12 +208,12 @@ const cases: Case[] = [
     },
   },
   {
-    label: "Apple Music / Ella and Louis (multi-artist credit preserved)",
-    url: "https://music.apple.com/us/album/ella-and-louis/1469584174",
+    label: "Apple Music / Bandana by Freddie Gibbs & Madlib (multi-artist credit preserved)",
+    url: "https://music.apple.com/us/album/bandana/1464243671",
     expected: {
-      title: "Ella and Louis",
-      artist: "Ella Fitzgerald & Louis Armstrong",
-      url: "https://music.apple.com/album/1469584174",
+      title: "Bandana",
+      artist: "Freddie Gibbs & Madlib",
+      url: "https://music.apple.com/album/1464243671",
       imagePattern: /^https:\/\/is\d+-ssl\.mzstatic\.com\/image\/thumb\/.+$/,
     },
   },
@@ -252,12 +252,12 @@ const cases: Case[] = [
     // albums collapse to one name. This pins the documented limitation —
     // if Deezer ever starts returning both, this test will fail loudly
     // and we can remove the workaround note from the README.
-    label: "Deezer / Ella and Louis (documented limitation: primary artist only)",
-    url: "https://www.deezer.com/album/70493232",
+    label: "Deezer / Bandana (documented limitation: Deezer credits primary artist only)",
+    url: "https://www.deezer.com/album/101778542",
     expected: {
-      title: "Ella and Louis",
-      artist: "Ella Fitzgerald",
-      url: "https://www.deezer.com/album/70493232",
+      title: "Bandana",
+      artist: "Freddie Gibbs",
+      url: "https://www.deezer.com/album/101778542",
       imagePattern: /^https:\/\/cdn-images\.dzcdn\.net\/images\/cover\/.+\/\d+x\d+\.jpg$/,
     },
   },
@@ -278,6 +278,16 @@ const cases: Case[] = [
       title: "Ants From Up There",
       artist: "Black Country, New Road",
       url: "https://blackcountrynewroad.bandcamp.com/album/ants-from-up-there",
+      imagePattern: /^https:\/\/f\d+\.bcbits\.com\/img\/.+\.jpg$/,
+    },
+  },
+  {
+    label: "Bandcamp / Bandana by Freddie Gibbs & Madlib (multi-artist with ampersand)",
+    url: "https://freddiegibbsmadlib.bandcamp.com/album/bandana",
+    expected: {
+      title: "Bandana",
+      artist: "Freddie Gibbs & Madlib",
+      url: "https://freddiegibbsmadlib.bandcamp.com/album/bandana",
       imagePattern: /^https:\/\/f\d+\.bcbits\.com\/img\/.+\.jpg$/,
     },
   },
