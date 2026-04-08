@@ -42,8 +42,7 @@
       const id = parsed.id;
       if (!id)
         return null;
-      const gql = Spicetify.GraphQL;
-      const response = await gql.Request(gql.Definitions.getAlbum, {
+      const response = await Spicetify.GraphQL.Request(Spicetify.GraphQL.Definitions.getAlbum, {
         uri: `spotify:album:${id}`,
         locale: "",
         offset: 0,

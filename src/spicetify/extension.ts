@@ -1,8 +1,10 @@
 // NAME: Album Details Extractor
 // AUTHOR: afonsojramos
 // DESCRIPTION: Extracts album information from Spotify and copies it to the clipboard.
-
-/// <reference path="./globals.d.ts" />
+//
+// The ambient `Spicetify` namespace comes from `./globals.d.ts` and is
+// picked up automatically by `tsconfig.json`'s `include` glob, so no
+// triple-slash reference is needed.
 
 import type { AlbumInfo } from "../shared/types";
 
@@ -56,14 +58,7 @@ import type { AlbumInfo } from "../shared/types";
 
     // Use Spicetify's internal GraphQL — same endpoint the Spotify client uses
     // to render the album page. No rate limit, no auth hassle.
-    const gql = (Spicetify as unknown as {
-      GraphQL: {
-        Request: (def: unknown, vars: Record<string, unknown>) => Promise<{ data?: unknown }>;
-        Definitions: { getAlbum: unknown };
-      };
-    }).GraphQL;
-
-    const response = await gql.Request(gql.Definitions.getAlbum, {
+    const response = await Spicetify.GraphQL.Request(Spicetify.GraphQL.Definitions.getAlbum, {
       uri: `spotify:album:${id}`,
       locale: "",
       offset: 0,
