@@ -1,4 +1,4 @@
-<h3 align="center"><img src="https://user-images.githubusercontent.com/19473034/147307719-faf4a334-6e5d-4153-8d47-c03c83276e57.png" width="150px"></h3>
+<h3 align="center"><img src="./src/chromium/icons/icon128.png" width="150px"></h3>
 <h1 align="center"> Album Details Extractor 🎶 </h1>
 
 <p align="center">
