@@ -1,4 +1,4 @@
-<h3 align="center"><img src="./src/chromium/icons/icon128.png" width="150px"></h3>
+<h3 align="center"><img src="./assets/logo.png" width="180px"></h3>
 <h1 align="center"> Album Details Extractor 🎶 </h1>
 
 <p align="center">
