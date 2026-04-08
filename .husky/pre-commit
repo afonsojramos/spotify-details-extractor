@@ -1,5 +1,5 @@
 bun run lint
 bun run fmt:check
 bun run typecheck
-bun test
+bun run test
 bun run build
