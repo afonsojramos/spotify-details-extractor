@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Album Details Extractor",
   "description": "Extract the most important details of an album (Spotify, Qobuz) to the desired JSON.",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "homepage_url": "https://github.com/afonsojramos/album-details-extractor",
   "action": {},
   "background": {
