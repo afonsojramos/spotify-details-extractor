@@ -110,6 +110,16 @@ const cases: Case[] = [
     },
   },
   {
+    label: "Spotify / IGOR by Tyler, The Creator (single artist whose name contains a comma)",
+    url: "https://open.spotify.com/album/5zi7WsKlIiUXv09tbGLKsE",
+    expected: {
+      title: "IGOR",
+      artist: "Tyler, The Creator",
+      url: "https://open.spotify.com/album/5zi7WsKlIiUXv09tbGLKsE",
+      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b27330a635de2bb0caa4e26f6abb$/,
+    },
+  },
+  {
     label: "Spotify / Ella and Louis by Ella Fitzgerald & Louis Armstrong (multi-artist with ampersand)",
     url: "https://open.spotify.com/album/176VGwd7ODjJVxT0DkQA7A",
     expected: {
