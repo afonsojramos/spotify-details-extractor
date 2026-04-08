@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "bun run scripts/build.ts",
+    "icons": "bun run scripts/icons.ts",
     "test": "bun test",
     "verify": "bun run scripts/verify.ts",
     "typecheck": "tsc --noEmit",
