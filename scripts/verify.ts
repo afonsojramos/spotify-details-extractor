@@ -110,6 +110,16 @@ const cases: Case[] = [
     },
   },
   {
+    label: "Spotify / Ella and Louis by Ella Fitzgerald & Louis Armstrong (multi-artist with ampersand)",
+    url: "https://open.spotify.com/album/176VGwd7ODjJVxT0DkQA7A",
+    expected: {
+      title: "Ella and Louis",
+      artist: "Ella Fitzgerald & Louis Armstrong",
+      url: "https://open.spotify.com/album/176VGwd7ODjJVxT0DkQA7A",
+      imagePattern: /^https:\/\/image-cdn-[a-z]+\.spotifycdn\.com\/image\/ab67616d0000b273ec269c4766bd515d0faf4a56$/,
+    },
+  },
+  {
     label: "Spotify / intl-pt URL (geo-localised prefix, canonical url in output)",
     url: "https://open.spotify.com/intl-pt/album/2P2Xwvh2xWXIZ1OWY9S9o5",
     expected: {
